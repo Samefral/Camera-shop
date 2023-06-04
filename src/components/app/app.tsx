@@ -1,5 +1,35 @@
+import { Route, Routes } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getCamerasDataLoadingStatus } from '../../store/cameras-data/selectors';
+import { AppRoute } from '../../const';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import Layout from '../../pages/layout/layout';
+import MainPage from '../../pages/main-page/main-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+
 function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+  const isCamerasDataLoading = useAppSelector(getCamerasDataLoadingStatus);
+
+  if (isCamerasDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  return (
+    <Routes>
+      <Route path={AppRoute.Root} element={<Layout />} >
+        <Route
+          index
+          element={<MainPage />}
+        />
+      </Route>
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
+  );
 }
 
 export default App;
