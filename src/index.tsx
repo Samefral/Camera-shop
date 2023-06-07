@@ -5,11 +5,12 @@ import { ToastContainer } from 'react-toastify';
 import HistoryRouter from './hocs/history-route/history-route';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { fetchCamerasAction } from './store/api-actions';
+import { fetchCamerasAction, fetchPromoCameraAction } from './store/api-actions';
 import browserHistory from './browser-history';
 import App from './components/app/app';
 
 store.dispatch(fetchCamerasAction());
+store.dispatch(fetchPromoCameraAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

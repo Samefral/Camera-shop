@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Banner from '../../components/banner/banner';
+import PromoBanner from '../../components/promo-banner/promo-banner';
 import FilterForm from '../../components/forms/filter-form/filter-form';
 import SortForm from '../../components/forms/sort-form/sort-form';
 import MainCamerasList from '../../components/lists/cameras-lists/main-cameras-list/main-cameras-list';
@@ -8,7 +8,7 @@ import PaginationList from '../../components/lists/pagination-list/pagination-li
 function CatalogPage(): JSX.Element {
   return (
     <main>
-      <Banner />
+      <PromoBanner />
       <div className="page-content">
         <div className="breadcrumbs">
           <div className="container">
