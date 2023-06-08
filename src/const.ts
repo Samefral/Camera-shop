@@ -1,5 +1,6 @@
 export enum AppRoute {
   Root = '/',
+  Catalog = '/catalog/:page',
   Guarantees = '/guarantees',
   Delivery = '/delivery',
   About = '/about',
@@ -22,3 +23,4 @@ export enum NameSpace {
 }
 
 export const REDIRECT_TO_ROUTE_ACTION_TYPE = '/redirectToRoute';
+export const CAMERAS_PER_PAGE = 9;

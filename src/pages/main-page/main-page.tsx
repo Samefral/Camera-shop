@@ -1,16 +1,9 @@
-import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/cameras-data/selectors';
+import { Navigate, generatePath } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function MainPage(): JSX.Element {
-  const cameras = useAppSelector(getCameras);
-
-  // eslint-disable-next-line no-console
-  console.log(cameras);
-
   return (
-    <main>
-      <h1>Camera shop</h1>
-    </main>
+    <Navigate to={generatePath(AppRoute.Catalog, { page: '1' })} />
   );
 }
 
