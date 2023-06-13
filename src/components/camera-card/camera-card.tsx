@@ -3,12 +3,14 @@ import { Camera } from '../../types/camera';
 
 type ProductCardProps = {
   camera: Camera;
+  isActive: boolean;
 };
 
-function CameraCard({camera}: ProductCardProps): JSX.Element {
+function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
+  const cardClassName = isActive ? 'product-card is-active' : 'product-card';
 
   return (
-    <div className="product-card">
+    <div className={cardClassName}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImg2x} 2x`} />

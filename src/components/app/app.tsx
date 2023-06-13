@@ -6,6 +6,7 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import Layout from '../../pages/layout/layout';
 import MainPage from '../../pages/main-page/main-page';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
+import ProductPage from '../../pages/product-page/product-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 function App(): JSX.Element {
@@ -27,6 +28,10 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Catalog}
           element={<CatalogPage />}
+        />
+        <Route
+          path={AppRoute.Product}
+          element={<ProductPage />}
         />
       </Route>
       <Route

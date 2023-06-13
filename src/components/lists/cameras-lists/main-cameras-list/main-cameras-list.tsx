@@ -24,7 +24,7 @@ function MainCamerasList(): JSX.Element {
           <h2 style={EmptyCamerasListMessageStyle}>{EMPTY_CAMERAS_LIST_MESSAGE}</h2>
           :
           camerasOnPage.map((camera) =>
-            <CameraCard key={camera.id} camera={camera} />
+            <CameraCard key={camera.id} camera={camera} isActive={false} />
           )
       }
     </div>
