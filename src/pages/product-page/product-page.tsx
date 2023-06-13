@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchCameraByIdAction } from '../../store/api-actions';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
@@ -33,6 +34,9 @@ function ProductPage(): JSX.Element {
   return (
     <React.Fragment>
       <main>
+        <Helmet>
+          <title>{camera.name} - Фотошоп</title>
+        </Helmet>
         <div className="page-content">
           <div className="breadcrumbs">
             <div className="container">

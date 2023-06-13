@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getCamerasDataLoadingStatus } from '../../store/cameras-data/selectors';
@@ -19,26 +20,28 @@ function App(): JSX.Element {
   }
 
   return (
-    <Routes>
-      <Route path={AppRoute.Root} element={<Layout />} >
+    <HelmetProvider>
+      <Routes>
+        <Route path={AppRoute.Root} element={<Layout />} >
+          <Route
+            index
+            element={<MainPage />}
+          />
+          <Route
+            path={AppRoute.Catalog}
+            element={<CatalogPage />}
+          />
+          <Route
+            path={AppRoute.Product}
+            element={<ProductPage />}
+          />
+        </Route>
         <Route
-          index
-          element={<MainPage />}
+          path="*"
+          element={<NotFoundPage />}
         />
-        <Route
-          path={AppRoute.Catalog}
-          element={<CatalogPage />}
-        />
-        <Route
-          path={AppRoute.Product}
-          element={<ProductPage />}
-        />
-      </Route>
-      <Route
-        path="*"
-        element={<NotFoundPage />}
-      />
-    </Routes>
+      </Routes>
+    </HelmetProvider>
   );
 }
 

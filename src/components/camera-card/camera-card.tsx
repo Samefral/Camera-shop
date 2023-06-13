@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 
 type ProductCardProps = {
@@ -54,7 +55,7 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
         <button className="btn btn--purple product-card__btn" type="button">
           Купить
         </button>
-        <Link className="btn btn--transparent" to="#">
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: String(camera.id) })}>
           Подробнее
         </Link>
       </div>

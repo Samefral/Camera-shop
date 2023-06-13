@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../hooks';
+import { getCamera } from '../../../store/cameras-data/selectors';
 import { AppRoute } from '../../../const';
 
 function BreadcrumbsList(): JSX.Element {
+  const camera = useAppSelector(getCamera);
+
   return (
     <ul className="breadcrumbs__list">
       <li className="breadcrumbs__item">
@@ -21,7 +25,7 @@ function BreadcrumbsList(): JSX.Element {
         </Link>
       </li>
       <li className="breadcrumbs__item">
-        <span className="breadcrumbs__link breadcrumbs__link--active">Ретрокамера Das Auge IV</span>
+        <span className="breadcrumbs__link breadcrumbs__link--active">{camera.name}</span>
       </li>
     </ul>
   );

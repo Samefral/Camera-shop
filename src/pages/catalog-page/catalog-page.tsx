@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import PromoBanner from '../../components/promo-banner/promo-banner';
 import FilterForm from '../../components/forms/filter-form/filter-form';
 import SortForm from '../../components/forms/sort-form/sort-form';
@@ -8,6 +9,9 @@ import PaginationList from '../../components/lists/pagination-list/pagination-li
 function CatalogPage(): JSX.Element {
   return (
     <main>
+      <Helmet>
+        <title>Каталог - Фотошоп</title>
+      </Helmet>
       <PromoBanner />
       <div className="page-content">
         <div className="breadcrumbs">
