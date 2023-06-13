@@ -1,6 +1,7 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
+import { formatPrice } from '../../utils/utils';
 
 type ProductCardProps = {
   camera: Camera;
@@ -48,7 +49,7 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
         </div>
         <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>{camera.price}
+          <span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}
         </p>
       </div>
       <div className="product-card__buttons">

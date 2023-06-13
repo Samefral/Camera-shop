@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchCameraByIdAction } from '../../store/api-actions';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
+import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import BreadcrumbsList from '../../components/lists/breadcrumbs-list/breadcrumbs-list';
@@ -73,7 +74,7 @@ function ProductPage(): JSX.Element {
                     <p className="visually-hidden">Рейтинг: 4</p>
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
                   </div>
-                  <p className="product__price"><span className="visually-hidden">Цена:</span>test ₽</p>
+                  <p className="product__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}</p>
                   <button className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
