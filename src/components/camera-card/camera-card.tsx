@@ -56,7 +56,11 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
         <button className="btn btn--purple product-card__btn" type="button">
           Купить
         </button>
-        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: String(camera.id) })}>
+        <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, {
+          id: String(camera.id),
+          tab: AppRoute.ProductDescriptionTab
+        })}
+        >
           Подробнее
         </Link>
       </div>
