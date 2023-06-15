@@ -3091,8 +3091,6 @@ button,
 
 .product-similar .product-card {
   display: none;
-  width: calc(33.3% - 16px);
-  margin: 0 16px;
 }
 
 .product-similar .product-card.is-active {

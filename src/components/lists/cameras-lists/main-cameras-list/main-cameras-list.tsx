@@ -4,7 +4,7 @@ import { getCameras } from '../../../../store/cameras-data/selectors';
 import { CAMERAS_PER_PAGE } from '../../../../const';
 import CameraCard from '../../../camera-card/camera-card';
 
-export const EmptyCamerasListMessageStyle = {
+const EmptyCamerasListMessageStyle = {
   textAlign: 'center',
   gridColumn: '2'
 } as React.CSSProperties;
