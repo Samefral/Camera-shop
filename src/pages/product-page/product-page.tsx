@@ -7,10 +7,10 @@ import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/
 import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
-import BreadcrumbsList from '../../components/lists/breadcrumbs-list/breadcrumbs-list';
+import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
 import SimilarCamerasList from '../../components/lists/cameras-lists/similar-cameras-list/similar-cameras-list';
-import TabsList from '../../components/lists/tabs-list/tabs-list';
-import ReviewList from '../../components/lists/review-list/review-list';
+import Tabs from '../../components/product-page/tabs/tabs';
+import Reviews from '../../components/product-page/reviews/reviews';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -39,11 +39,7 @@ function ProductPage(): JSX.Element {
           <title>{camera.name} - Фотошоп</title>
         </Helmet>
         <div className="page-content">
-          <div className="breadcrumbs">
-            <div className="container">
-              <BreadcrumbsList />
-            </div>
-          </div>
+          <Breadcrumbs />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -81,44 +77,13 @@ function ProductPage(): JSX.Element {
                     </svg>
                     Добавить в корзину
                   </button>
-                  <div className="tabs product__tabs">
-                    <div className="tabs__controls product__tabs-controls">
-                      <button className="tabs__control" type="button">Характеристики</button>
-                      <button className="tabs__control is-active" type="button">Описание</button>
-                    </div>
-                    <div className="tabs__content">
-                      <div className="tabs__element">
-                        <TabsList />
-                      </div>
-                      <div className="tabs__element is-active">
-                        <div className="product__tabs-text">
-                          <p>Немецкий концерн BRW разработал видеокамеру Das Auge IV в&nbsp;начале 80-х годов, однако она до&nbsp;сих пор пользуется популярностью среди коллекционеров и&nbsp;яростных почитателей старинной техники.</p>
-                          <p>Вы&nbsp;тоже можете прикоснуться к&nbsp;волшебству аналоговой съёмки, заказав этот чудо-аппарат. Кто знает, может с&nbsp;Das Auge IV&nbsp;начнётся ваш путь к&nbsp;наградам всех престижных кинофестивалей.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Tabs />
                 </div>
               </div>
             </section>
           </div>
           <SimilarCamerasList />
-          <div className="page-content__section">
-            <section className="review-block">
-              <div className="container">
-                <div className="page-content__headed">
-                  <h2 className="title title--h3">Отзывы</h2>
-                  <button className="btn" type="button">Оставить свой отзыв</button>
-                </div>
-                <ReviewList />
-                <div className="review-block__buttons">
-                  <button className="btn btn--purple" type="button">
-                    Показать больше отзывов
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
+          <Reviews />
         </div>
       </main>
       <a className="up-btn" href="#header">
