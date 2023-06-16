@@ -1,24 +1,14 @@
 import 'swiper/swiper-bundle.min.css';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks';
 import { getSimilarCameras, getSimilarCamerasDataLoadingStatus } from '../../../../store/cameras-data/selectors';
-import { fetchSimilarCamerasAction } from '../../../../store/api-actions';
 import CameraCard from '../../../camera-card/camera-card';
 import LoadingScreen from '../../../../pages/loading-screen/loading-screen';
 
 function SimilarCamerasList(): JSX.Element {
-  const cameraId = useParams().id as string;
   const similarCameras = useAppSelector(getSimilarCameras);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasDataLoadingStatus);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchSimilarCamerasAction(cameraId));
-  }, [dispatch, cameraId]);
 
   if (isSimilarCamerasLoading) {
     return <LoadingScreen />;

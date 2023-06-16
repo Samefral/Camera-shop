@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { fetchCameraByIdAction } from '../../store/api-actions';
+import { fetchCameraByIdAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-actions';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -10,7 +10,8 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
 import SimilarCamerasList from '../../components/lists/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
-import Reviews from '../../components/product-page/reviews/reviews';
+import ProductReviews from '../../components/product-page/product-reviews/product-reviews';
+import UpBtn from '../../components/product-page/up-btn/up-btn';
 
 function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -22,6 +23,8 @@ function ProductPage(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCameraByIdAction(cameraId));
+    dispatch(fetchSimilarCamerasAction(cameraId));
+    dispatch(fetchReviewsAction(cameraId));
   }, [dispatch, cameraId]);
 
   if (isCameraDataLoading) {
@@ -83,14 +86,10 @@ function ProductPage(): JSX.Element {
             </section>
           </div>
           <SimilarCamerasList />
-          <Reviews />
+          <ProductReviews />
         </div>
       </main>
-      <a className="up-btn" href="#header">
-        <svg width="12" height="18" aria-hidden="true">
-          <use xlinkHref="#icon-arrow2"></use>
-        </svg>
-      </a>
+      <UpBtn />
     </React.Fragment>
   );
 }

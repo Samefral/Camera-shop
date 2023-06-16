@@ -1,5 +1,6 @@
 import { store } from '../store/index.js';
 import { Cameras, Camera, PromoCamera } from './camera.js';
+import { Reviews } from './review.js';
 
 export type CameraData = {
   cameras: {
@@ -17,6 +18,12 @@ export type CameraData = {
     isLoading: boolean;
   };
 };
+
+export type ReviewData = {
+  reviews: Reviews;
+  isReviewsLoading: boolean;
+  isReviewPosting: boolean;
+}
 
 export type State = ReturnType<typeof store.getState>;
 
