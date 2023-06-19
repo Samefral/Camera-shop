@@ -20,7 +20,7 @@ export const initialState: CameraData = {
   }
 };
 
-export const CamerasData = createSlice({
+export const camerasData = createSlice({
   name: NameSpace.CamerasData,
   initialState,
   reducers: {},

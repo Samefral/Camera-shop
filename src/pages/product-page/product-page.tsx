@@ -11,6 +11,7 @@ import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
 import SimilarCamerasList from '../../components/lists/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
 import ProductReviews from '../../components/product-page/product-reviews/product-reviews';
+import AddReviewModal from '../../components/product-page/product-reviews/add-review-modal/add-review-modal';
 import UpBtn from '../../components/product-page/up-btn/up-btn';
 
 function ProductPage(): JSX.Element {
@@ -88,6 +89,7 @@ function ProductPage(): JSX.Element {
           <SimilarCamerasList />
           <ProductReviews />
         </div>
+        <AddReviewModal />
       </main>
       <UpBtn />
     </React.Fragment>

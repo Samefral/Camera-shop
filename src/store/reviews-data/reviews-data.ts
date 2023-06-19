@@ -8,12 +8,17 @@ export const initialState: ReviewData = {
   reviews: [],
   isReviewsLoading: false,
   isReviewPosting: false,
+  addReviewModalOpenStatus: false,
 };
 
-export const ReviewsData = createSlice({
+export const reviewsData = createSlice({
   name: NameSpace.ReviewsData,
   initialState,
-  reducers: {},
+  reducers: {
+    setAddReviewModalOpenStatus: (state, action) => {
+      state.addReviewModalOpenStatus = action.payload as boolean;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -37,3 +42,5 @@ export const ReviewsData = createSlice({
 
   }
 });
+
+export const { setAddReviewModalOpenStatus } = reviewsData.actions;

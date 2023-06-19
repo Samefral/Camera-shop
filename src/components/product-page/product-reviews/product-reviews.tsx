@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useAppSelector } from '../../../hooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { getReviews, getReviewsDataLoadingStatus } from '../../../store/reviews-data/selectors';
 import { Reviews } from '../../../types/review';
+import { setAddReviewModalOpenStatus } from '../../../store/reviews-data/reviews-data';
 import LoadingScreen from '../../../pages/loading-screen/loading-screen';
 import ReviewCard from './review-card/review-card';
 
@@ -17,6 +18,8 @@ function ProductReviews(): JSX.Element {
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const reviews = sortReviewsByDate(useAppSelector(getReviews));
   const isReviewsLoading = useAppSelector(getReviewsDataLoadingStatus);
+
+  const dispatch = useAppDispatch();
 
   const handleScroll = () => {
     if (checkIfReachedEndOfPage()) {
@@ -58,7 +61,7 @@ function ProductReviews(): JSX.Element {
         <div className="container">
           <div className="page-content__headed">
             <h2 className="title title--h3">Отзывы</h2>
-            <button className="btn" type="button">Оставить свой отзыв</button>
+            <button className="btn" type="button" onClick={() => dispatch(setAddReviewModalOpenStatus(true))}>Оставить свой отзыв</button>
           </div>
           <ul className="review-block__list">
             {reviews.slice(0, renderedReviews).map((review) => (
