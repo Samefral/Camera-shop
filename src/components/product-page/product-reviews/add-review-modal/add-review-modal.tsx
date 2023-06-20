@@ -1,43 +1,30 @@
-import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 import { getAddRevieModalOpenStatus } from '../../../../store/reviews-data/selectors';
 import { setAddReviewModalOpenStatus } from '../../../../store/reviews-data/reviews-data';
-import ReactFocusLock from 'react-focus-lock';
+import ReactModal from 'react-modal';
 import AddReviewForm from '../../../forms/add-review-form/add-review-form';
 
-interface KeyboardEvent {
-  key: string;
-}
-
 function AddReviewModal(): JSX.Element {
-  const isOpen = useAppSelector(getAddRevieModalOpenStatus);
+  const isModalOpen = useAppSelector(getAddRevieModalOpenStatus);
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const onEscapeKeydown = (evt: KeyboardEvent) => {
-      if (evt.key === 'Escape') {
-        dispatch(setAddReviewModalOpenStatus(false));
-      }
-    };
-
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', onEscapeKeydown);
-    }
-    return () => {
-      document.body.style.overflow = 'visible';
-      document.removeEventListener('keydown', onEscapeKeydown);
-    };
-  }, [dispatch, isOpen]);
+  const handleModalClose = () => dispatch(setAddReviewModalOpenStatus(false));
 
   return (
-    <ReactFocusLock >
-      <div className={isOpen ? 'modal is-active' : 'modal'} >
+    <ReactModal
+      isOpen={isModalOpen}
+      ariaHideApp={false}
+      style={{content: {inset: 'unset'}}}
+      bodyOpenClassName='scroll-lock'
+      overlayClassName='custom-modal-overlay'
+      onRequestClose={handleModalClose}
+    >
+      <div className='modal is-active'>
         <div className="modal__wrapper">
           <div
             className="modal__overlay"
-            onClick={() => dispatch(setAddReviewModalOpenStatus(false))}
+            onClick={handleModalClose}
           >
           </div>
           <div className="modal__content">
@@ -46,7 +33,7 @@ function AddReviewModal(): JSX.Element {
               <AddReviewForm />
             </div>
             <button
-              onClick={() => dispatch(setAddReviewModalOpenStatus(false))}
+              onClick={handleModalClose}
               className="cross-btn"
               type="button" aria-label="Закрыть попап"
             >
@@ -57,7 +44,7 @@ function AddReviewModal(): JSX.Element {
           </div>
         </div>
       </div>
-    </ReactFocusLock>
+    </ReactModal>
   );
 }
 
