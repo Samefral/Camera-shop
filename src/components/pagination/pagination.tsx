@@ -1,11 +1,11 @@
 import { Link, generatePath } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
-import { getCameras } from '../../../store/cameras-data/selectors';
-import { AppRoute, CAMERAS_PER_PAGE } from '../../../const';
+import { useAppSelector } from '../../hooks';
+import { getCameras } from '../../store/cameras-data/selectors';
+import { AppRoute, CAMERAS_PER_PAGE } from '../../const';
 import PaginationItem from './pagination-item/pagination-item';
 
-function PaginationList(): JSX.Element {
+function Pagination(): JSX.Element {
   const currentPage = Number(useParams().page);
   const cameras = useAppSelector(getCameras);
 
@@ -13,8 +13,9 @@ function PaginationList(): JSX.Element {
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
   return (
-    <ul className="pagination__list">
-      {currentPage !== 1 &&
+    <div className="pagination">
+      <ul className="pagination__list">
+        {currentPage !== 1 &&
           <li className="pagination__item">
             <Link
               className="pagination__link pagination__link--text"
@@ -23,16 +24,16 @@ function PaginationList(): JSX.Element {
               Назад
             </Link>
           </li>}
-      {
-        pages.length === 0
-          ?
-          null
-          :
-          pages.map((page) =>
-            <PaginationItem key={page} pageNumber={page} isActive={currentPage === page} />
-          )
-      }
-      {currentPage !== pagesCount &&
+        {
+          pages.length === 0
+            ?
+            null
+            :
+            pages.map((page) =>
+              <PaginationItem key={page} pageNumber={page} isActive={currentPage === page} />
+            )
+        }
+        {currentPage !== pagesCount &&
         <li className="pagination__item">
           <Link
             className="pagination__link pagination__link--text"
@@ -41,8 +42,9 @@ function PaginationList(): JSX.Element {
             Далее
           </Link>
         </li>}
-    </ul>
+      </ul>
+    </div>
   );
 }
 
-export default PaginationList;
+export default Pagination;

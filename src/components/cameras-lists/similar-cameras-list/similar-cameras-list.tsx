@@ -1,10 +1,10 @@
 import 'swiper/swiper-bundle.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { useAppSelector } from '../../../../hooks';
-import { getSimilarCameras, getSimilarCamerasDataLoadingStatus } from '../../../../store/cameras-data/selectors';
-import CameraCard from '../../../camera-card/camera-card';
-import LoadingScreen from '../../../../pages/loading-screen/loading-screen';
+import { useAppSelector } from '../../../hooks';
+import { getSimilarCameras, getSimilarCamerasDataLoadingStatus } from '../../../store/cameras-data/selectors';
+import CameraCard from '../../camera-card/camera-card';
+import LoadingScreen from '../../../pages/loading-screen/loading-screen';
 
 function SimilarCamerasList(): JSX.Element {
   const similarCameras = useAppSelector(getSimilarCameras);

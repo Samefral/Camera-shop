@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../../../hooks';
-import { getCameras } from '../../../../store/cameras-data/selectors';
-import { CAMERAS_PER_PAGE } from '../../../../const';
-import CameraCard from '../../../camera-card/camera-card';
+import { useAppSelector } from '../../../hooks';
+import { getCameras } from '../../../store/cameras-data/selectors';
+import { CAMERAS_PER_PAGE } from '../../../const';
+import CameraCard from '../../camera-card/camera-card';
 
 const EmptyCamerasListMessageStyle = {
   textAlign: 'center',

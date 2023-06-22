@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import PromoBanner from '../../components/promo-banner/promo-banner';
 import FilterForm from '../../components/forms/filter-form/filter-form';
 import SortForm from '../../components/forms/sort-form/sort-form';
-import MainCamerasList from '../../components/lists/cameras-lists/main-cameras-list/main-cameras-list';
-import PaginationList from '../../components/lists/pagination-list/pagination-list';
+import MainCamerasList from '../../components/cameras-lists/main-cameras-list/main-cameras-list';
+import Pagination from '../../components/pagination/pagination';
 
 function CatalogPage(): JSX.Element {
   return (
@@ -47,9 +47,7 @@ function CatalogPage(): JSX.Element {
                   <SortForm />
                 </div>
                 <MainCamerasList />
-                <div className="pagination">
-                  <PaginationList />
-                </div>
+                <Pagination />
               </div>
             </div>
           </div>

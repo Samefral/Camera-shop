@@ -8,9 +8,9 @@ import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
-import SimilarCamerasList from '../../components/lists/cameras-lists/similar-cameras-list/similar-cameras-list';
+import SimilarCamerasList from '../../components/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
-import ProductReviews from '../../components/product-page/product-reviews/product-reviews';
+import ReviewsList from '../../components/product-page/product-reviews/reviews-list/reviews-list';
 import AddReviewModal from '../../components/product-page/product-reviews/add-review-modal/add-review-modal';
 import UpBtn from '../../components/product-page/up-btn/up-btn';
 
@@ -18,7 +18,7 @@ function ProductPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const isCameraDataLoading = useAppSelector(getCameraDataLoadingStatus);
 
-  const cameraId = useParams().id as string;
+  const cameraId = Number(useParams().id);
 
   const dispatch = useAppDispatch();
 
@@ -87,7 +87,7 @@ function ProductPage(): JSX.Element {
             </section>
           </div>
           <SimilarCamerasList />
-          <ProductReviews />
+          <ReviewsList />
         </div>
         <AddReviewModal />
       </main>

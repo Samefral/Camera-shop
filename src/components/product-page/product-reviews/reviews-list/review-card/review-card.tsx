@@ -1,5 +1,5 @@
-import { Review } from '../../../../types/review';
-import { formatDate } from '../../../../utils/utils';
+import { Review } from '../../../../../types/review';
+import { formatDate } from '../../../../../utils/utils';
 
 type ReviewCardProps = {
   review: Review;

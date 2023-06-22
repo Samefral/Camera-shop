@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { getReviews } from '../../../store/reviews-data/selectors';
-import { Reviews } from '../../../types/review';
-import { setAddReviewModalOpen } from '../../../store/reviews-data/reviews-data';
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { getReviews } from '../../../../store/reviews-data/selectors';
+import { Reviews } from '../../../../types/review';
+import { setAddReviewModalOpen } from '../../../../store/reviews-data/reviews-data';
 import ReviewCard from './review-card/review-card';
 
 const DEFAULT_RENDERED_REVIEWS_COUNT = 3;
@@ -12,7 +12,7 @@ const sortReviewsByDate = (reviews: Reviews) => [...reviews].sort((a, b) => Date
 const checkIfReachedEndOfPage = () => window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
 const areAllReviewsDisplayed = (renderedReviewsCount: number, reviews: Reviews) => renderedReviewsCount >= reviews.length;
 
-function ProductReviews(): JSX.Element {
+function ReviewsList(): JSX.Element {
   const [renderedReviewsCount, setRenderedReviewsCount] = useState(DEFAULT_RENDERED_REVIEWS_COUNT);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const reviews = sortReviewsByDate(useAppSelector(getReviews));
@@ -80,4 +80,4 @@ function ProductReviews(): JSX.Element {
   );
 }
 
-export default ProductReviews;
+export default ReviewsList;

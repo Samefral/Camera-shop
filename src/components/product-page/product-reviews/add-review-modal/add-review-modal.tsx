@@ -43,6 +43,7 @@ function AddReviewModal(): JSX.Element {
                     onClick={handleModalClose}
                     className="btn btn--purple modal__btn modal__btn--fit-width"
                     type="button"
+                    autoFocus
                   >
                     Вернуться к покупкам
                   </button>
