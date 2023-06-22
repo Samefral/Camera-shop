@@ -6,4 +6,5 @@ export const getReviews = (state: State): Reviews => state[NameSpace.ReviewsData
 export const getReviewsDataLoadingStatus = (state: State): boolean => state[NameSpace.ReviewsData].isReviewsLoading;
 export const getRivewPostingStatus = (state: State): boolean => state[NameSpace.ReviewsData].isReviewPosting;
 
-export const getAddRevieModalOpenStatus = (state: State): boolean => state[NameSpace.ReviewsData].addReviewModalOpenStatus;
+export const getAddRevieModalOpenStatus = (state: State): boolean => state[NameSpace.ReviewsData].addReviewModalOpen;
+export const getAddReviewSuccessStatus = (state: State): boolean => state[NameSpace.ReviewsData].addReviewSuccessStatus;

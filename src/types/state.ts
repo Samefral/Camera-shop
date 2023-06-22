@@ -23,7 +23,8 @@ export type ReviewData = {
   reviews: Reviews;
   isReviewsLoading: boolean;
   isReviewPosting: boolean;
-  addReviewModalOpenStatus: boolean;
+  addReviewModalOpen: boolean;
+  addReviewSuccessStatus: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;

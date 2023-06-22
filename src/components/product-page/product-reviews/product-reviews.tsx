@@ -1,23 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { getReviews, getReviewsDataLoadingStatus } from '../../../store/reviews-data/selectors';
+import { getReviews } from '../../../store/reviews-data/selectors';
 import { Reviews } from '../../../types/review';
-import { setAddReviewModalOpenStatus } from '../../../store/reviews-data/reviews-data';
-import LoadingScreen from '../../../pages/loading-screen/loading-screen';
+import { setAddReviewModalOpen } from '../../../store/reviews-data/reviews-data';
 import ReviewCard from './review-card/review-card';
 
-const DEFAULT_RENDERED_REVIEWS_QUANTITY = 3;
-const REVIEWS_TO_RENDER_QUANTITY = 3;
+const DEFAULT_RENDERED_REVIEWS_COUNT = 3;
+const REVIEWS_TO_RENDER_COUNT = 3;
 
 const sortReviewsByDate = (reviews: Reviews) => [...reviews].sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt));
 const checkIfReachedEndOfPage = () => window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
-const areAllReviewsDisplayed = (renderedReviews: number, reviews: Reviews) => renderedReviews >= reviews.length;
+const areAllReviewsDisplayed = (renderedReviewsCount: number, reviews: Reviews) => renderedReviewsCount >= reviews.length;
 
 function ProductReviews(): JSX.Element {
-  const [renderedReviews, setRenderedReviews] = useState(DEFAULT_RENDERED_REVIEWS_QUANTITY);
+  const [renderedReviewsCount, setRenderedReviewsCount] = useState(DEFAULT_RENDERED_REVIEWS_COUNT);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const reviews = sortReviewsByDate(useAppSelector(getReviews));
-  const isReviewsLoading = useAppSelector(getReviewsDataLoadingStatus);
 
   const dispatch = useAppDispatch();
 
@@ -30,18 +28,18 @@ function ProductReviews(): JSX.Element {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
-    if (areAllReviewsDisplayed(renderedReviews, reviews)) {
+    if (areAllReviewsDisplayed(renderedReviewsCount, reviews)) {
       window.removeEventListener('scroll', handleScroll);
     }
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [renderedReviews, reviews]);
+  }, [renderedReviewsCount, reviews]);
 
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted && hasScrolledToBottom && !areAllReviewsDisplayed(renderedReviews, reviews)) {
-      setRenderedReviews(renderedReviews + REVIEWS_TO_RENDER_QUANTITY);
+    if (isMounted && hasScrolledToBottom && !areAllReviewsDisplayed(renderedReviewsCount, reviews)) {
+      setRenderedReviewsCount(renderedReviewsCount + REVIEWS_TO_RENDER_COUNT);
       setHasScrolledToBottom(false);
     }
 
@@ -49,11 +47,7 @@ function ProductReviews(): JSX.Element {
       isMounted = false;
     };
 
-  }, [hasScrolledToBottom, renderedReviews, reviews]);
-
-  if (isReviewsLoading) {
-    return <LoadingScreen />;
-  }
+  }, [hasScrolledToBottom, renderedReviewsCount, reviews]);
 
   return (
     <div className="page-content__section">
@@ -61,18 +55,18 @@ function ProductReviews(): JSX.Element {
         <div className="container">
           <div className="page-content__headed">
             <h2 className="title title--h3">Отзывы</h2>
-            <button className="btn" type="button" onClick={() => dispatch(setAddReviewModalOpenStatus(true))}>Оставить свой отзыв</button>
+            <button className="btn" type="button" onClick={() => dispatch(setAddReviewModalOpen(true))}>Оставить свой отзыв</button>
           </div>
           <ul className="review-block__list">
-            {reviews.slice(0, renderedReviews).map((review) => (
+            {reviews.slice(0, renderedReviewsCount).map((review) => (
               <ReviewCard key={review.id} review={review} />
             ))}
           </ul>
           <div className="review-block__buttons">
             {
-              areAllReviewsDisplayed(renderedReviews, reviews) ? null :
+              areAllReviewsDisplayed(renderedReviewsCount, reviews) ? null :
                 <button
-                  onClick={() => setRenderedReviews(renderedReviews + REVIEWS_TO_RENDER_QUANTITY)}
+                  onClick={() => setRenderedReviewsCount(renderedReviewsCount + REVIEWS_TO_RENDER_COUNT)}
                   className="btn btn--purple"
                   type="button"
                 >

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { fetchReviewsAction, postReviewAction } from '../api-actions';
 import { NameSpace } from '../../const';
@@ -8,16 +8,20 @@ export const initialState: ReviewData = {
   reviews: [],
   isReviewsLoading: false,
   isReviewPosting: false,
-  addReviewModalOpenStatus: false,
+  addReviewModalOpen: false,
+  addReviewSuccessStatus: false,
 };
 
 export const reviewsData = createSlice({
   name: NameSpace.ReviewsData,
   initialState,
   reducers: {
-    setAddReviewModalOpenStatus: (state, action) => {
-      state.addReviewModalOpenStatus = action.payload as boolean;
-    }
+    setAddReviewModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.addReviewModalOpen = action.payload;
+    },
+    setAddReviewSuccessStatus: (state, action: PayloadAction<boolean>) => {
+      state.addReviewSuccessStatus = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -28,19 +32,21 @@ export const reviewsData = createSlice({
         state.reviews = action.payload;
         state.isReviewsLoading = false;
       })
+
       .addCase(postReviewAction.pending, (state) => {
         state.isReviewPosting = true;
       })
-
       .addCase(postReviewAction.fulfilled, (state) => {
         state.isReviewPosting = false;
+        state.addReviewSuccessStatus = true;
       })
       .addCase(postReviewAction.rejected, (state, action) => {
         state.isReviewPosting = false;
+        state.addReviewSuccessStatus = false;
         toast.error(action.error.message);
       });
 
   }
 });
 
-export const { setAddReviewModalOpenStatus } = reviewsData.actions;
+export const { setAddReviewModalOpen, setAddReviewSuccessStatus } = reviewsData.actions;

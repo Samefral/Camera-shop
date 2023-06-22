@@ -1,6 +1,38 @@
+import { useForm } from 'react-hook-form';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { getCamera } from '../../../store/cameras-data/selectors';
+import { postReviewAction } from '../../../store/api-actions';
+import { PostReviewData } from '../../../types/review';
+
 function AddReviewForm(): JSX.Element {
+  const { register, handleSubmit, formState: { errors } } = useForm<PostReviewData>();
+  const cameraId = useAppSelector(getCamera).id;
+  const inputErrorClass = 'is-invalid custom-input form-review__item';
+  const inputNoErrorClass = 'custom-input form-review__item';
+  const textAreaErrorClass = 'is-invalid custom-textarea form-review__item';
+  const textAreaNoErrorClass = 'custom-textarea form-review__item';
+
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (data: PostReviewData) => {
+    dispatch(postReviewAction({
+      cameraId: cameraId,
+      userName: data.userName,
+      advantage: data.advantage,
+      disadvantage: data.disadvantage,
+      review: data.review,
+      rating: Number(data.rating)
+    }));
+  };
+
   return (
-    <form method="post">
+    <form
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        void handleSubmit(onSubmit)(evt);
+      }}
+      method="post"
+    >
       <div className="form-review__rate">
         <fieldset className="rate form-review__item">
           <legend className="rate__caption">Рейтинг
@@ -10,15 +42,30 @@ function AddReviewForm(): JSX.Element {
           </legend>
           <div className="rate__bar">
             <div className="rate__group">
-              <input className="visually-hidden" id="star-5" name="rate" type="radio" value="5" />
+              <input
+                {...register('rating', {required: true})}
+                className="visually-hidden" id="star-5" name="rating" type="radio" value="5"
+              />
               <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-              <input className="visually-hidden" id="star-4" name="rate" type="radio" value="4" />
+              <input
+                {...register('rating', {required: true})}
+                className="visually-hidden" id="star-4" name="rating" type="radio" value="4"
+              />
               <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-              <input className="visually-hidden" id="star-3" name="rate" type="radio" value="3" />
+              <input
+                {...register('rating', {required: true})}
+                className="visually-hidden" id="star-3" name="rating" type="radio" value="3"
+              />
               <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-              <input className="visually-hidden" id="star-2" name="rate" type="radio" value="2" />
+              <input
+                {...register('rating', {required: true})}
+                className="visually-hidden" id="star-2" name="rating" type="radio" value="2"
+              />
               <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-              <input className="visually-hidden" id="star-1" name="rate" type="radio" value="1" />
+              <input
+                {...register('rating', {required: true})}
+                className="visually-hidden" id="star-1" name="rating" type="radio" value="1"
+              />
               <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
             </div>
             <div className="rate__progress">
@@ -27,51 +74,68 @@ function AddReviewForm(): JSX.Element {
               <span className="rate__all-stars">5</span>
             </div>
           </div>
-          <p className="rate__message">Нужно оценить товар</p>
+          <p style={{opacity: errors.rating ? 1 : 0}} className="rate__message">Нужно оценить товар</p>
         </fieldset>
-        <div className="custom-input form-review__item">
+        <div className={errors.userName ? inputErrorClass : inputNoErrorClass} >
           <label>
             <span className="custom-input__label">Ваше имя
               <svg width="9" height="9" aria-hidden="true">
                 <use xlinkHref="#icon-snowflake"></use>
               </svg>
             </span>
-            <input type="text" name="user-name" placeholder="Введите ваше имя" required />
+            <input
+              {...register('userName', {required: true})}
+              aria-invalid={errors.userName ? 'true' : 'false'}
+              type="text" name="userName" placeholder="Введите ваше имя"
+            />
           </label>
-          <p className="custom-input__error">Нужно указать имя</p>
+          <p style={{opacity: errors.userName ? 1 : 0}} className="custom-input__error">Нужно указать имя</p>
         </div>
-        <div className="custom-input form-review__item">
+        <div className={errors.advantage ? inputErrorClass : inputNoErrorClass} >
           <label>
             <span className="custom-input__label">Достоинства
               <svg width="9" height="9" aria-hidden="true">
                 <use xlinkHref="#icon-snowflake"></use>
               </svg>
             </span>
-            <input type="text" name="user-plus" placeholder="Основные преимущества товара" required />
+            <input
+              {...register('advantage', {required: true})}
+              aria-invalid={errors.advantage ? 'true' : 'false'}
+              type="text" name="advantage" placeholder="Основные преимущества товара"
+            />
           </label>
-          <p className="custom-input__error">Нужно указать достоинства</p>
+          <p style={{opacity: errors.advantage ? 1 : 0}} className="custom-input__error">Нужно указать достоинства</p>
         </div>
-        <div className="custom-input form-review__item">
+        <div className={errors.disadvantage ? inputErrorClass : inputNoErrorClass} >
           <label>
             <span className="custom-input__label">Недостатки
               <svg width="9" height="9" aria-hidden="true">
                 <use xlinkHref="#icon-snowflake"></use>
               </svg>
             </span>
-            <input type="text" name="user-minus" placeholder="Главные недостатки товара" required />
+            <input
+              {...register('disadvantage', {required: true})}
+              aria-invalid={errors.disadvantage ? 'true' : 'false'}
+              type="text" name="disadvantage" placeholder="Главные недостатки товара"
+            />
           </label>
-          <p className="custom-input__error">Нужно указать недостатки</p>
+          <p style={{opacity: errors.disadvantage ? 1 : 0}} className="custom-input__error">Нужно указать недостатки</p>
         </div>
-        <div className="custom-textarea form-review__item">
+        <div className={errors.review ? textAreaErrorClass : textAreaNoErrorClass} >
           <label>
             <span className="custom-textarea__label">Комментарий
               <svg width="9" height="9" aria-hidden="true">
                 <use xlinkHref="#icon-snowflake"></use>
               </svg>
             </span>
-            <textarea name="user-comment" minLength={5} placeholder="Поделитесь своим опытом покупки"></textarea>
+            <textarea
+              {...register('review', {required: true})}
+              aria-invalid={errors.review ? 'true' : 'false'}
+              name="review" minLength={5} placeholder="Поделитесь своим опытом покупки"
+            >
+            </textarea>
           </label>
-          <div className="custom-textarea__error">Нужно добавить комментарий</div>
+          <div style={{opacity: errors.review ? 1 : 0}} className="custom-textarea__error">Нужно добавить комментарий</div>
         </div>
       </div>
       <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
