@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getPromoCamera, getPromoCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
+import { AppRoute } from '../../const';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function PromoBanner(): JSX.Element {
@@ -27,7 +28,12 @@ function PromoBanner(): JSX.Element {
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promoCamera.name}</span>
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        <Link className="btn" to="#">Подробнее</Link>
+        <Link
+          className="btn"
+          to={generatePath(AppRoute.Product, {id: String(promoCamera.id), tab: AppRoute.ProductDescriptionTab})}
+        >
+          Подробнее
+        </Link>
       </p>
     </div>
   );
