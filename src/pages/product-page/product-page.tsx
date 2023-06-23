@@ -55,8 +55,17 @@ function ProductPage(): JSX.Element {
               <div className="container">
                 <div className="product__img">
                   <picture>
-                    <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`} />
-                    <img src={camera.previewImg} srcSet={camera.previewImg2x} width="560" height="480" alt={camera.name} />
+                    <source
+                      type="image/webp"
+                      srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`}
+                    />
+                    <img
+                      src={camera.previewImg}
+                      srcSet={camera.previewImg2x}
+                      width="560"
+                      height="480"
+                      alt={camera.name}
+                    />
                   </picture>
                 </div>
                 <div className="product__content">
@@ -78,9 +87,13 @@ function ProductPage(): JSX.Element {
                       <use xlinkHref="#icon-star"></use>
                     </svg>
                     <p className="visually-hidden">Рейтинг: 4</p>
-                    <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
+                    <p className="rate__count">
+                      <span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}
+                    </p>
                   </div>
-                  <p className="product__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}</p>
+                  <p className="product__price">
+                    <span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}
+                  </p>
                   <button className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>

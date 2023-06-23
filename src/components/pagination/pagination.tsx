@@ -1,12 +1,14 @@
 import { Link, generatePath } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getCameras } from '../../store/cameras-data/selectors';
 import { AppRoute, CAMERAS_PER_PAGE } from '../../const';
 import PaginationItem from './pagination-item/pagination-item';
 
-function Pagination(): JSX.Element {
-  const currentPage = Number(useParams().page);
+type PaginationProps = {
+  currentPage: number;
+}
+
+function Pagination({currentPage}: PaginationProps): JSX.Element {
   const cameras = useAppSelector(getCameras);
 
   const pagesCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
