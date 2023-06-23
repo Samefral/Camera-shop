@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchCameraByIdAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -19,6 +20,7 @@ function ProductPage(): JSX.Element {
   const isCameraDataLoading = useAppSelector(getCameraDataLoadingStatus);
 
   const cameraId = Number(useParams().id);
+  const activeTab = useParams().tab;
 
   const dispatch = useAppDispatch();
 
@@ -33,6 +35,10 @@ function ProductPage(): JSX.Element {
   }
 
   if (!camera) {
+    return <NotFoundPage />;
+  }
+
+  if (activeTab !== AppRoute.ProductCharacteristicsTab && activeTab !== AppRoute.ProductDescriptionTab) {
     return <NotFoundPage />;
   }
 
