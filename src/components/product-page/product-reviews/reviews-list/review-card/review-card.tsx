@@ -1,12 +1,12 @@
 import { Review } from '../../../../../types/review';
 import { formatDate } from '../../../../../utils/utils';
+import StarRating from '../../../../star-rating/star-rating';
 
 type ReviewCardProps = {
   review: Review;
 }
 
 function ReviewCard({review}: ReviewCardProps): JSX.Element {
-
   return (
     <li className="review-card">
       <div className="review-card__head">
@@ -14,21 +14,7 @@ function ReviewCard({review}: ReviewCardProps): JSX.Element {
         <time className="review-card__data" dateTime={review.createAt}>{formatDate(review.createAt)}</time>
       </div>
       <div className="rate review-card__rate">
-        <svg width="17" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
-        </svg>
-        <svg width="17" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
-        </svg>
-        <svg width="17" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
-        </svg>
-        <svg width="17" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
-        </svg>
-        <svg width="17" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
-        </svg>
+        <StarRating rating={review.rating} id={review.id} />
         <p className="visually-hidden">Оценка: {review.rating}</p>
       </div>
       <ul className="review-card__list">
