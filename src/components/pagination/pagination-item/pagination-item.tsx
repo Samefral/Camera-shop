@@ -10,7 +10,7 @@ function PaginationItem({pageNumber, isActive}: PaginationItemProps): JSX.Elemen
   const paginationItemClassName = isActive ? 'pagination__link pagination__link--active' : 'pagination__link';
 
   return (
-    <li className="pagination__item">
+    <li className="pagination__item" data-testid="pagination-link">
       <Link className={paginationItemClassName} to={generatePath(AppRoute.Catalog, { page: `${pageNumber}` })}>{pageNumber}</Link>
     </li>
   );

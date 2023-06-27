@@ -12,7 +12,7 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
   const cardClassName = isActive ? 'product-card is-active' : 'product-card';
 
   return (
-    <div className={cardClassName}>
+    <div className={cardClassName} data-testid="camera-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImg2x} 2x`} />

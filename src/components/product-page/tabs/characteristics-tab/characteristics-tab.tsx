@@ -9,7 +9,7 @@ function CharacteristicsTab({camera, isActive}: CharacteristicsTabProps): JSX.El
   const tabClassName = isActive ? 'tabs__element is-active' : 'tabs__element';
 
   return (
-    <div className={tabClassName}>
+    <div className={tabClassName} data-testid="characteristics-tab">
       <ul className="product__tabs-list">
         <li className="item-list">
           <span className="item-list__title">Артикул:</span>

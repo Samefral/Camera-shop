@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 import { getReviews } from '../../../../store/reviews-data/selectors';
+import { sortReviewsByDate } from '../../../../utils/utils';
 import { Reviews } from '../../../../types/review';
 import { setAddReviewModalOpen } from '../../../../store/reviews-data/reviews-data';
 import ReviewCard from './review-card/review-card';
@@ -8,7 +9,6 @@ import ReviewCard from './review-card/review-card';
 const DEFAULT_RENDERED_REVIEWS_COUNT = 3;
 const REVIEWS_TO_RENDER_COUNT = 3;
 
-const sortReviewsByDate = (reviews: Reviews) => [...reviews].sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt));
 const checkIfReachedEndOfPage = () => window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight;
 const areAllReviewsDisplayed = (renderedReviewsCount: number, reviews: Reviews) => renderedReviewsCount >= reviews.length;
 
