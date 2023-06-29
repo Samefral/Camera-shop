@@ -3139,13 +3139,13 @@ button,
 .slider-controls:disabled {
   color: #dddddd;
   background-color: #f8f8f8;
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
 .slider-controls.disabled {
   color: #dddddd;
   background-color: #f8f8f8;
-  pointer-events: none;
+  pointer-events: none !important;
 }
 
 .slider-controls--prev {
