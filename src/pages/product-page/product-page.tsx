@@ -9,6 +9,7 @@ import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
+import StarRating from '../../components/star-rating/star-rating';
 import SimilarCamerasList from '../../components/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
 import ReviewsList from '../../components/product-page/product-reviews/reviews-list/reviews-list';
@@ -71,22 +72,8 @@ function ProductPage(): JSX.Element {
                 <div className="product__content">
                   <h1 className="title title--h3">{camera.name}</h1>
                   <div className="rate product__rate">
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-full-star"></use>
-                    </svg>
-                    <svg width="17" height="16" aria-hidden="true">
-                      <use xlinkHref="#icon-star"></use>
-                    </svg>
-                    <p className="visually-hidden">Рейтинг: 4</p>
+                    <StarRating rating={camera.rating} id={camera.id} />
+                    <p className="visually-hidden">Рейтинг: {camera.rating}</p>
                     <p className="rate__count">
                       <span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}
                     </p>

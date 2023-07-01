@@ -2,6 +2,7 @@ import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/utils';
+import StarRating from '../star-rating/star-rating';
 
 type ProductCardProps = {
   camera: Camera;
@@ -27,22 +28,8 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
+          <StarRating rating={camera.rating} id={camera.id} />
+          <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count">
             <span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}
           </p>

@@ -8,6 +8,7 @@ export type Camera = {
   level: string;
   price: number;
   reviewCount: number;
+  rating: number;
   previewImg: string;
   previewImg2x: string;
   previewImgWebp: string;

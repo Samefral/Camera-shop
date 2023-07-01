@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { getCamerasDataLoadingStatus } from '../../store/cameras-data/selectors';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 import PromoBanner from '../../components/promo-banner/promo-banner';
 import FilterForm from '../../components/forms/filter-form/filter-form';
 import SortForm from '../../components/forms/sort-form/sort-form';
 import MainCamerasList from '../../components/cameras-lists/main-cameras-list/main-cameras-list';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function CatalogPage(): JSX.Element {
+  const isCamerasLoading = useAppSelector(getCamerasDataLoadingStatus);
+
   return (
     <main>
       <Helmet>
@@ -46,7 +51,7 @@ function CatalogPage(): JSX.Element {
                 <div className="catalog-sort">
                   <SortForm />
                 </div>
-                <MainCamerasList />
+                {isCamerasLoading ? <LoadingScreen /> : <MainCamerasList />}
               </div>
             </div>
           </div>

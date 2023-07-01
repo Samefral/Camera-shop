@@ -2,7 +2,7 @@ import React from 'react';
 
 type StarRatingProps = {
   rating: number;
-  id: string;
+  id: string | number;
 }
 
 const MAX_RATING = 5;
