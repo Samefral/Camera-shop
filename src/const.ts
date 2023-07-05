@@ -1,6 +1,11 @@
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog/:page',
+  CatalogSort = ':sortType/:sortOrder',
+  CatalogSortPopupularType = 'popular',
+  CatalogSortPriceType = 'price',
+  CatalogSortUpOrder = 'up',
+  CatalogSortDownOrder = 'down',
   Product = '/product/:id/:tab',
   ProductDescriptionTab = 'description',
   ProductCharacteristicsTab = 'characteristics',

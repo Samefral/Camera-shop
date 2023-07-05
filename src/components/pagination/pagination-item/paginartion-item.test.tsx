@@ -10,7 +10,7 @@ describe('PaginationItem component', () => {
 
     render(
       <BrowserRouter>
-        <PaginationItem pageNumber={pageNumber} isActive={false} />
+        <PaginationItem pageNumber={pageNumber} isActive={false} sortType={''} sortOrder={''} />
       </BrowserRouter>
     );
 
@@ -22,7 +22,7 @@ describe('PaginationItem component', () => {
 
     render(
       <BrowserRouter>
-        <PaginationItem pageNumber={pageNumber} isActive />
+        <PaginationItem pageNumber={pageNumber} isActive sortType={''} sortOrder={''} />
       </BrowserRouter>
     );
 
@@ -35,7 +35,7 @@ describe('PaginationItem component', () => {
 
     render(
       <BrowserRouter>
-        <PaginationItem pageNumber={pageNumber} isActive={false} />
+        <PaginationItem pageNumber={pageNumber} isActive={false} sortType={''} sortOrder={''} />
       </BrowserRouter>
     );
 
@@ -48,7 +48,7 @@ describe('PaginationItem component', () => {
 
     render(
       <BrowserRouter>
-        <PaginationItem pageNumber={pageNumber} isActive={false} />
+        <PaginationItem pageNumber={pageNumber} isActive={false} sortType={''} sortOrder={''} />
       </BrowserRouter>
     );
 

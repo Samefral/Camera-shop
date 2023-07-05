@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
-import { getCameras } from '../../../store/cameras-data/selectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { getSortedCameras } from '../../../store/cameras-data/selectors';
+import { setCurrentSortType, setCurrentSortOrder } from '../../../store/cameras-data/cameras-data';
 import { CAMERAS_PER_PAGE } from '../../../const';
 import CameraCard from '../../camera-card/camera-card';
 import Pagination from '../../pagination/pagination';
@@ -14,10 +15,20 @@ const EmptyCamerasListMessageStyle = {
 const EMPTY_CAMERAS_LIST_MESSAGE = 'Камер нет';
 
 function MainCamerasList(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const currentSortType = useParams().sortType as string;
+  const currentSortOrder = useParams().sortOrder as string;
+
+  useEffect(() => {
+    dispatch(setCurrentSortType(currentSortType));
+    dispatch(setCurrentSortOrder(currentSortOrder));
+  }, [currentSortOrder, currentSortType, dispatch]);
+
   const page = Number(useParams().page);
   const currentPage = page ? page : 1;
 
-  const cameras = useAppSelector(getCameras);
+  const cameras = useAppSelector(getSortedCameras);
   const camerasOnPage = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
   return (
@@ -33,7 +44,7 @@ function MainCamerasList(): JSX.Element {
             )
         }
       </div>
-      <Pagination currentPage={currentPage} />
+      <Pagination currentPage={currentPage} currentSortType={currentSortType} currentSortOrder={currentSortOrder} />
     </React.Fragment>
   );
 }

@@ -6,13 +6,19 @@ import PaginationItem from './pagination-item/pagination-item';
 
 type PaginationProps = {
   currentPage: number;
+  currentSortType: string;
+  currentSortOrder: string;
 }
 
-function Pagination({currentPage}: PaginationProps): JSX.Element {
+function Pagination({currentPage, currentSortType, currentSortOrder}: PaginationProps): JSX.Element {
   const cameras = useAppSelector(getCameras);
 
   const pagesCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+  const getBtnPath = (page: number) => currentSortType ? `${generatePath(AppRoute.Catalog,
+    { page: `${page}` })}/${currentSortType}/${currentSortOrder}` :
+    generatePath(AppRoute.Catalog, { page: `${page}` });
 
   return (
     <div className="pagination">
@@ -21,7 +27,7 @@ function Pagination({currentPage}: PaginationProps): JSX.Element {
           <li className="pagination__item">
             <Link
               className="pagination__link pagination__link--text"
-              to={generatePath(AppRoute.Catalog, { page: `${currentPage - 1}` })}
+              to={getBtnPath(currentPage - 1)}
             >
               Назад
             </Link>
@@ -32,14 +38,22 @@ function Pagination({currentPage}: PaginationProps): JSX.Element {
             null
             :
             pages.map((page) =>
-              <PaginationItem key={page} pageNumber={page} isActive={currentPage === page} />
+              (
+                <PaginationItem
+                  key={page}
+                  pageNumber={page}
+                  sortType={currentSortType}
+                  sortOrder={currentSortOrder}
+                  isActive={currentPage === page}
+                />
+              )
             )
         }
         {currentPage !== pagesCount &&
         <li className="pagination__item">
           <Link
             className="pagination__link pagination__link--text"
-            to={generatePath(AppRoute.Catalog, { page: `${currentPage + 1}` })}
+            to={getBtnPath(currentPage + 1)}
           >
             Далее
           </Link>

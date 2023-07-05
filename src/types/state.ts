@@ -6,6 +6,8 @@ export type CameraData = {
   cameras: {
     data: Cameras;
     isLoading: boolean;
+    currentSortType: string | null;
+    currentSortOrder: string | null;
   };
   camera: {
     data: Camera | null;

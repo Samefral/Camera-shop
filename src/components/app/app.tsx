@@ -15,10 +15,10 @@ function App(): JSX.Element {
             index
             element={<CatalogPage />}
           />
-          <Route
-            path={AppRoute.Catalog}
-            element={<CatalogPage />}
-          />
+          <Route path={AppRoute.Catalog} >
+            <Route index element={<CatalogPage />}/>
+            <Route path={AppRoute.CatalogSort} element={<CatalogPage />} />
+          </Route>
           <Route
             path={AppRoute.Product}
             element={<ProductPage />}

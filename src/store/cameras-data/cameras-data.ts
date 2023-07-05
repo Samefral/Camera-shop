@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchCamerasAction, fetchCameraByIdAction, fetchSimilarCamerasAction, fetchPromoCameraAction } from '../api-actions';
 import { NameSpace } from '../../const';
 import { CameraData } from '../../types/state';
@@ -7,6 +7,8 @@ export const initialState: CameraData = {
   cameras: {
     data: [],
     isLoading: false,
+    currentSortType: null,
+    currentSortOrder: null,
   },
   camera: {
     data: null,
@@ -23,7 +25,14 @@ export const initialState: CameraData = {
 export const camerasData = createSlice({
   name: NameSpace.CamerasData,
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentSortType: (state, action: PayloadAction<string>) => {
+      state.cameras.currentSortType = action.payload;
+    },
+    setCurrentSortOrder: (state, action: PayloadAction<string>) => {
+      state.cameras.currentSortOrder = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchCamerasAction.pending, (state) => {
@@ -70,3 +79,5 @@ export const camerasData = createSlice({
 
   }
 });
+
+export const { setCurrentSortType, setCurrentSortOrder } = camerasData.actions;
