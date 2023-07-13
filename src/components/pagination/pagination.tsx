@@ -1,4 +1,5 @@
 import { Link, generatePath } from 'react-router-dom';
+import { useGetParamsPath } from '../../hooks/useGetParamsPath';
 import { Cameras } from '../../types/camera';
 import { AppRoute, CAMERAS_PER_PAGE } from '../../const';
 import PaginationItem from './pagination-item/pagination-item';
@@ -11,12 +12,14 @@ type PaginationProps = {
 }
 
 function Pagination({cameras, currentPage, currentSortType, currentSortOrder}: PaginationProps): JSX.Element {
+  const paramsPath = useGetParamsPath();
+
   const pagesCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
   const getBtnPath = (page: number) => currentSortType ? `${generatePath(AppRoute.Catalog,
-    { page: `${page}` })}/${currentSortType}/${currentSortOrder}` :
-    generatePath(AppRoute.Catalog, { page: `${page}` });
+    { page: `${page}` })}/${currentSortType}/${currentSortOrder}?${paramsPath}` :
+    `${generatePath(AppRoute.Catalog, { page: `${page}` })}?${paramsPath}`;
 
   return (
     <div className="pagination">

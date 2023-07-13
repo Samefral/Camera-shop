@@ -1,8 +1,10 @@
 import { useNavigate, useParams, generatePath } from 'react-router-dom';
+import { useGetParamsPath } from '../../../hooks/useGetParamsPath';
 import { AppRoute } from '../../../const';
 
 function SortForm(): JSX.Element {
   const navigate = useNavigate();
+  const paramsPath = useGetParamsPath();
 
   const page = Number(useParams().page);
   const currentPage = page ? page : 1;
@@ -10,10 +12,10 @@ function SortForm(): JSX.Element {
   const currentSortOrder = useParams().sortOrder as string;
 
   const getSortTypePath = (sortType: string) => `${generatePath(AppRoute.Catalog,
-    { page: `${currentPage}` })}/${sortType}/${!currentSortOrder ? AppRoute.CatalogSortUpOrder : currentSortOrder}`;
+    { page: `${currentPage}` })}/${sortType}/${!currentSortOrder ? AppRoute.CatalogSortUpOrder : currentSortOrder}?${paramsPath}`;
 
   const getSortOrderPath = (sortOrder: string) => `${generatePath(AppRoute.Catalog,
-    { page: `${currentPage}` })}/${!currentSortType ? AppRoute.CatalogSortPriceType : currentSortType}/${sortOrder}`;
+    { page: `${currentPage}` })}/${!currentSortType ? AppRoute.CatalogSortPriceType : currentSortType}/${sortOrder}?${paramsPath}`;
 
   return (
     <form action="#">
