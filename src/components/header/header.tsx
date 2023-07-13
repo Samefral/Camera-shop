@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getCamerasDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { AppRoute } from '../../const';
 import SearchForm from '../forms/search-form/search-form';
 
 function Header(): JSX.Element {
+  const isCamerasLoading = useAppSelector(getCamerasDataLoadingStatus);
+
   return (
     <header className="header" id="header">
       <div className="container">
@@ -27,7 +31,7 @@ function Header(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <SearchForm />
+        <SearchForm isCamerasLoading={isCamerasLoading}/>
         <Link className="header__basket-link" data-testid="basket-link" to={AppRoute.Cart}>
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>

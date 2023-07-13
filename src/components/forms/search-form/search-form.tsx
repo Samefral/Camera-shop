@@ -4,7 +4,11 @@ import { getCameras } from '../../../store/cameras-data/selectors';
 import { Cameras } from '../../../types/camera';
 import SearchFormItem from './search-form-item/search-form-item';
 
-function SearchForm(): JSX.Element {
+type SearchFormProps = {
+  isCamerasLoading: boolean;
+};
+
+function SearchForm({isCamerasLoading}: SearchFormProps): JSX.Element {
   const cameras = useAppSelector(getCameras);
 
   const formContainerRef = useRef<HTMLDivElement>(null);
@@ -93,11 +97,12 @@ function SearchForm(): JSX.Element {
             className="form-search__input"
             type="text"
             autoComplete="off"
-            placeholder="Поиск по сайту"
+            placeholder={isCamerasLoading ? 'Камеры загружаются...' : 'Поиск по сайту'}
             ref={searchInputRef}
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onKeyDown={handleInputKeyDown}
+            disabled={isCamerasLoading}
           />
         </label>
         <ul
