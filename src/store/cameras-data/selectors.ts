@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { AppRoute, NameSpace } from '../../const';
 import { State } from '../../types/state';
 import { Cameras, Camera, PromoCamera } from '../../types/camera';
-
+import { CamerasFiltersParams } from '../../types/cameras-filters';
 
 export const getCameras = (state: State): Cameras => state[NameSpace.CamerasData].cameras.data;
 export const getCamerasDataLoadingStatus = (state: State): boolean => state[NameSpace.CamerasData].cameras.isLoading;
@@ -26,6 +26,33 @@ export const getSortedCameras = createSelector(
     }
 
     return sortOrder === AppRoute.CatalogSortDownOrder ? sortedCameras : sortedCameras.reverse();
+  }
+);
+
+export const getfilteredCameras = createSelector(
+  [getSortedCameras],
+  (cameras) => ({category, types, levels, minPrice, maxPrice}: CamerasFiltersParams, priceFilter: boolean) => {
+    let filteredCameras = [...cameras];
+
+    if (category) {
+      filteredCameras = cameras.filter((camera) => camera.category === category);
+    }
+    if (types.length > 0) {
+      filteredCameras = filteredCameras.filter((camera) => types.includes(camera.type));
+    }
+    if (levels.length > 0) {
+      filteredCameras = filteredCameras.filter((camera) => levels.includes(camera.level));
+    }
+    if (priceFilter) {
+      if (minPrice) {
+        filteredCameras = filteredCameras.filter((camera) => camera.price >= minPrice);
+      }
+      if (maxPrice) {
+        filteredCameras = filteredCameras.filter((camera) => camera.price <= maxPrice);
+      }
+    }
+
+    return filteredCameras;
   }
 );
 

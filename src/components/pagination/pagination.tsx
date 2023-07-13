@@ -1,18 +1,16 @@
 import { Link, generatePath } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/cameras-data/selectors';
+import { Cameras } from '../../types/camera';
 import { AppRoute, CAMERAS_PER_PAGE } from '../../const';
 import PaginationItem from './pagination-item/pagination-item';
 
 type PaginationProps = {
+  cameras: Cameras;
   currentPage: number;
   currentSortType: string;
   currentSortOrder: string;
 }
 
-function Pagination({currentPage, currentSortType, currentSortOrder}: PaginationProps): JSX.Element {
-  const cameras = useAppSelector(getCameras);
-
+function Pagination({cameras, currentPage, currentSortType, currentSortOrder}: PaginationProps): JSX.Element {
   const pagesCount = Math.ceil(cameras.length / CAMERAS_PER_PAGE);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 

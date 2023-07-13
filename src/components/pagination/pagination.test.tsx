@@ -50,7 +50,7 @@ const getFakeApp = (page: number) => (
   <Provider store={mockStore({...store})}>
     <BrowserRouter>
       <HelmetProvider>
-        <Pagination currentPage={page} currentSortType={''} currentSortOrder={''}/>
+        <Pagination currentPage={page} currentSortType={''} currentSortOrder={''} cameras={mockCameras}/>
       </HelmetProvider>
     </BrowserRouter>
   </Provider>

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { getSortedCameras } from '../../../store/cameras-data/selectors';
+import { getfilteredCameras } from '../../../store/cameras-data/selectors';
 import { setCurrentSortType, setCurrentSortOrder } from '../../../store/cameras-data/cameras-data';
 import { CAMERAS_PER_PAGE } from '../../../const';
+import useGetFilterParams from '../../../hooks/useGetFilterParams';
 import CameraCard from '../../camera-card/camera-card';
 import Pagination from '../../pagination/pagination';
 
@@ -12,10 +13,13 @@ const EmptyCamerasListMessageStyle = {
   gridColumn: '2'
 } as React.CSSProperties;
 
-const EMPTY_CAMERAS_LIST_MESSAGE = 'Камер нет';
+const EMPTY_CAMERAS_LIST_MESSAGE = 'По вашему запросу ничего не найдено';
 
 function MainCamerasList(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const currentFilters = useGetFilterParams();
+  const filteredCameras = useAppSelector(getfilteredCameras)(currentFilters, true);
 
   const currentSortType = useParams().sortType as string;
   const currentSortOrder = useParams().sortOrder as string;
@@ -28,8 +32,7 @@ function MainCamerasList(): JSX.Element {
   const page = Number(useParams().page);
   const currentPage = page ? page : 1;
 
-  const cameras = useAppSelector(getSortedCameras);
-  const camerasOnPage = cameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
+  const camerasOnPage = filteredCameras.slice((currentPage - 1) * CAMERAS_PER_PAGE, currentPage * CAMERAS_PER_PAGE);
 
   return (
     <React.Fragment>
@@ -44,7 +47,7 @@ function MainCamerasList(): JSX.Element {
             )
         }
       </div>
-      <Pagination currentPage={currentPage} currentSortType={currentSortType} currentSortOrder={currentSortOrder} />
+      <Pagination cameras={filteredCameras} currentPage={currentPage} currentSortType={currentSortType} currentSortOrder={currentSortOrder} />
     </React.Fragment>
   );
 }
