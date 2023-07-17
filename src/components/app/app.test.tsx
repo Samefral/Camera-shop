@@ -52,6 +52,16 @@ const camerasLoadingStore = mockStore({
     cameras: {
       data: mockCameras,
       isLoading: true,
+    },
+    camera: {
+      data: mockCamera,
+      isLoading: false,
+      similarCameras: mockCameras,
+      isSimilarCamerasLoading: false,
+    },
+    promoCamera: {
+      data: mockPromoCamera,
+      isLoading: false,
     }
   }
 });

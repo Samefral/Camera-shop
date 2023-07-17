@@ -39,7 +39,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         fetchCamerasAction.pending.type,
-        fetchCamerasAction.fulfilled.type
+        fetchCamerasAction.rejected.type
       ]);
     });
 
@@ -61,7 +61,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         fetchCameraByIdAction.pending.type,
-        fetchCameraByIdAction.fulfilled.type
+        fetchCameraByIdAction.rejected.type
       ]);
     });
 
@@ -105,7 +105,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         fetchSimilarCamerasAction.pending.type,
-        fetchSimilarCamerasAction.fulfilled.type
+        fetchSimilarCamerasAction.rejected.type
       ]);
     });
 

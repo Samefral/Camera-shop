@@ -13,6 +13,7 @@ export const makeFakeCamera = (): Camera => ({
   level: random.word(),
   price: datatype.number(),
   reviewCount: datatype.number(),
+  rating: datatype.number(),
   previewImg: system.filePath(),
   previewImg2x: system.filePath(),
   previewImgWebp: system.filePath(),
