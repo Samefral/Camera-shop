@@ -35,6 +35,10 @@ function PriceFilter(): JSX.Element {
       return;
     }
 
+    if (filterName === CamerasFilters.Price.maxParamName && valueInNumber < currentFilters.minPrice) {
+      return;
+    }
+
     searchParams.set(filterName, evt.currentTarget.value);
     navigate(`${location.pathname}?${searchParams.toString()}`);
   };
