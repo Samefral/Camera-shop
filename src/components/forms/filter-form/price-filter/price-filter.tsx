@@ -44,7 +44,7 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
-    if (currentFilters.minPrice < minPossiblePrice && Number(evt.target.value) > 0) {
+    if (Number(evt.target.value) < minPossiblePrice && Number(evt.target.value) > 0) {
       evt.target.value = String(minPossiblePrice);
       searchParams.set(CamerasFilters.Price.minParamName, String(minPossiblePrice));
       navigate(`${location.pathname}?${searchParams.toString()}`);
