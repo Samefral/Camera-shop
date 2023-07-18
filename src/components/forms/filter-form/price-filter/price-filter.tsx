@@ -80,7 +80,7 @@ function PriceFilter(): JSX.Element {
               type="number"
               name="price"
               ref={minPriceInputRef}
-              placeholder={!isFinite(minPossiblePrice) ? 'от' : `от ${minPossiblePrice}`}
+              placeholder={!isFinite(minPossiblePrice) ? 'от' : `${minPossiblePrice}`}
               onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.minParamName)}
               onBlur={handleMinPriceBlur}
               onWheel={handleMinPriceWheel}
@@ -93,7 +93,7 @@ function PriceFilter(): JSX.Element {
               type="number"
               name="priceUp"
               ref={maxPriceInputRef}
-              placeholder={!isFinite(maxPossiblePrice) ? 'до' : `до ${maxPossiblePrice}`}
+              placeholder={!isFinite(maxPossiblePrice) ? 'до' : `${maxPossiblePrice}`}
               onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.maxParamName)}
               onBlur={handleMaxPriceBlur}
               onWheel={handleMaxPriceWheel}
