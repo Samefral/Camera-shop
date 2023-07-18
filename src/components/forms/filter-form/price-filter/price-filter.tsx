@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks';
 import { getfilteredCameras } from '../../../../store/cameras-data/selectors';
@@ -5,6 +6,9 @@ import { CamerasFilters } from '../../../../const';
 import useGetFilterParams from '../../../../hooks/useGetFilterParams';
 
 function PriceFilter(): JSX.Element {
+  const minPriceInputRef = useRef<HTMLInputElement>(null);
+  const maxPriceInputRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,6 +63,9 @@ function PriceFilter(): JSX.Element {
 
   };
 
+  const handleMinPriceWheel = () => minPriceInputRef.current?.blur();
+  const handleMaxPriceWheel = () => maxPriceInputRef.current?.blur();
+
   return (
     <fieldset className="catalog-filter__block">
       <legend className="title title--h5">Цена, ₽</legend>
@@ -68,9 +75,11 @@ function PriceFilter(): JSX.Element {
             <input
               type="number"
               name="price"
+              ref={minPriceInputRef}
               placeholder={!isFinite(minPossiblePrice) ? 'от' : `от ${minPossiblePrice}`}
               onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.minParamName)}
               onBlur={handleMinPriceBlur}
+              onWheel={handleMinPriceWheel}
             />
           </label>
         </div>
@@ -79,9 +88,11 @@ function PriceFilter(): JSX.Element {
             <input
               type="number"
               name="priceUp"
+              ref={maxPriceInputRef}
               placeholder={!isFinite(maxPossiblePrice) ? 'до' : `до ${maxPossiblePrice}`}
               onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.maxParamName)}
               onBlur={handleMaxPriceBlur}
+              onWheel={handleMaxPriceWheel}
             />
           </label>
         </div>
