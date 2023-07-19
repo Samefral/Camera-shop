@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchCamerasAction, fetchCameraByIdAction, fetchSimilarCamerasAction, fetchPromoCameraAction } from '../api-actions';
 import { NameSpace } from '../../const';
@@ -50,8 +51,9 @@ export const camerasData = createSlice({
         state.camera.isLoading = false;
         state.camera.data = action.payload;
       })
-      .addCase(fetchCameraByIdAction.rejected, (state) => {
+      .addCase(fetchCameraByIdAction.rejected, (state, action) => {
         state.camera.isLoading = false;
+        toast.error(action.error.message);
       })
 
       .addCase(fetchSimilarCamerasAction.pending, (state) => {

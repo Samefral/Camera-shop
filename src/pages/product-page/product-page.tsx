@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchCameraByIdAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-actions';
@@ -7,7 +7,6 @@ import { AppRoute } from '../../const';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
-import NotFoundPage from '../not-found-page/not-found-page';
 import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
 import StarRating from '../../components/star-rating/star-rating';
 import SimilarCamerasList from '../../components/cameras-lists/similar-cameras-list/similar-cameras-list';
@@ -24,6 +23,7 @@ function ProductPage(): JSX.Element {
   const activeTab = useParams().tab;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCameraByIdAction(cameraId));
@@ -31,16 +31,14 @@ function ProductPage(): JSX.Element {
     dispatch(fetchReviewsAction(cameraId));
   }, [dispatch, cameraId]);
 
-  if (isCameraDataLoading) {
+  useEffect(() => {
+    if (activeTab !== AppRoute.ProductCharacteristicsTab && activeTab !== AppRoute.ProductDescriptionTab) {
+      navigate(generatePath(AppRoute.Product, {id: String(cameraId), tab: AppRoute.ProductDescriptionTab}));
+    }
+  }, [activeTab, cameraId, navigate]);
+
+  if (isCameraDataLoading || !camera) {
     return <LoadingScreen />;
-  }
-
-  if (!camera) {
-    return <NotFoundPage />;
-  }
-
-  if (activeTab !== AppRoute.ProductCharacteristicsTab && activeTab !== AppRoute.ProductDescriptionTab) {
-    return <NotFoundPage />;
   }
 
   return (
