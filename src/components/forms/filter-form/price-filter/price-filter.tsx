@@ -37,22 +37,12 @@ function PriceFilter(): JSX.Element {
       return;
     }
 
-    searchParams.set(filterName, evt.currentTarget.value);
-    navigate(`${location.pathname}?${searchParams.toString()}`);
-  };
-
-  const handleMinPriceInput = (evt: React.FormEvent<HTMLInputElement>) => {
-    if (currentFilters.maxPrice && Number(evt.currentTarget.value) > currentFilters.maxPrice) {
-      maxPriceInputElement.value = evt.currentTarget.value;
-    }
-    onPriceInput(evt, CamerasFilters.Price.minParamName);
-  };
-
-  const handleMaxPriceInput = (evt: React.FormEvent<HTMLInputElement>) => {
-    if (currentFilters.minPrice && Number(evt.currentTarget.value) < currentFilters.minPrice) {
+    if (filterName === CamerasFilters.Price.maxParamName && valueInNumber < currentFilters.minPrice) {
       return;
     }
-    onPriceInput(evt, CamerasFilters.Price.maxParamName);
+
+    searchParams.set(filterName, evt.currentTarget.value);
+    navigate(`${location.pathname}?${searchParams.toString()}`);
   };
 
   const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
@@ -98,7 +88,7 @@ function PriceFilter(): JSX.Element {
               name="price"
               ref={minPriceInputRef}
               placeholder={!isFinite(minPossiblePrice) ? 'от' : `${minPossiblePrice}`}
-              onInput={handleMinPriceInput}
+              onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.minParamName)}
               onBlur={handleMinPriceBlur}
               onWheel={handleMinPriceWheel}
             />
@@ -111,7 +101,7 @@ function PriceFilter(): JSX.Element {
               name="priceUp"
               ref={maxPriceInputRef}
               placeholder={!isFinite(maxPossiblePrice) ? 'до' : `${maxPossiblePrice}`}
-              onInput={handleMaxPriceInput}
+              onInput={(evt) => onPriceInput(evt, CamerasFilters.Price.maxParamName)}
               onBlur={handleMaxPriceBlur}
               onWheel={handleMaxPriceWheel}
             />
