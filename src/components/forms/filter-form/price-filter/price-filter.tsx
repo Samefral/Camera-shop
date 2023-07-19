@@ -7,7 +7,9 @@ import useGetFilterParams from '../../../../hooks/useGetFilterParams';
 
 function PriceFilter(): JSX.Element {
   const minPriceInputRef = useRef<HTMLInputElement>(null);
+  const minPriceInputElement = minPriceInputRef.current as HTMLInputElement;
   const maxPriceInputRef = useRef<HTMLInputElement>(null);
+  const maxPriceInputElement = maxPriceInputRef.current as HTMLInputElement;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,31 +46,36 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMinPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
-    if (Number(evt.target.value) < minPossiblePrice && Number(evt.target.value) > 0) {
-      evt.target.value = String(minPossiblePrice);
-      searchParams.set(CamerasFilters.Price.minParamName, String(minPossiblePrice));
+    if (Number(evt.target.value) > 0) {
+      if (Number(evt.target.value) < minPossiblePrice) {
+        evt.target.value = String(minPossiblePrice);
+        searchParams.set(CamerasFilters.Price.minParamName, String(minPossiblePrice));
+      }
+      if (currentFilters.maxPrice && Number(maxPriceInputElement.value) < Number(evt.target.value)) {
+        maxPriceInputElement.value = evt.target.value;
+        searchParams.set(CamerasFilters.Price.maxParamName, maxPriceInputElement.value);
+      }
       navigate(`${location.pathname}?${searchParams.toString()}`);
     }
   };
 
   const handleMaxPriceBlur = (evt: React.FocusEvent<HTMLInputElement>) => {
     if (Number(evt.target.value) > 0) {
-      if (Number(evt.currentTarget.value) < minPossiblePrice) {
-        evt.target.value = String(minPossiblePrice);
-        searchParams.set(CamerasFilters.Price.maxParamName, String(minPossiblePrice));
-        navigate(`${location.pathname}?${searchParams.toString()}`);
+      if (Number(evt.currentTarget.value) < currentFilters.minPrice) {
+        evt.target.value = String(currentFilters.minPrice);
+        searchParams.set(CamerasFilters.Price.maxParamName, String(currentFilters.minPrice));
       }
       if (currentFilters.maxPrice > maxPossiblePrice) {
         evt.target.value = String(maxPossiblePrice);
         searchParams.set(CamerasFilters.Price.maxParamName, String(maxPossiblePrice));
-        navigate(`${location.pathname}?${searchParams.toString()}`);
       }
+      navigate(`${location.pathname}?${searchParams.toString()}`);
     }
 
   };
 
-  const handleMinPriceWheel = () => minPriceInputRef.current?.blur();
-  const handleMaxPriceWheel = () => maxPriceInputRef.current?.blur();
+  const handleMinPriceWheel = () => minPriceInputElement.blur();
+  const handleMaxPriceWheel = () => maxPriceInputElement.blur();
 
   return (
     <fieldset className="catalog-filter__block">
