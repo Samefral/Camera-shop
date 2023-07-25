@@ -4,8 +4,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
-import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../utils/mocks';
-import { NameSpace, AppRoute } from '../../../const';
+import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../utils/mocks';
+import { NameSpace, AppRoute } from '../../const';
 import Breadcrumbs from './breadcrumbs';
 
 const mockStore = configureMockStore([thunk]);
@@ -48,7 +48,7 @@ describe('BreadCrumbs component', () => {
       <Provider store={mockStore({...store})}>
         <BrowserRouter>
           <HelmetProvider>
-            <Breadcrumbs />
+            <Breadcrumbs crumbName={mockCamera.name} />
           </HelmetProvider>
         </BrowserRouter>
       </Provider>
@@ -63,7 +63,7 @@ describe('BreadCrumbs component', () => {
       <Provider store={mockStore({...store})}>
         <BrowserRouter>
           <HelmetProvider>
-            <Breadcrumbs />
+            <Breadcrumbs crumbName={mockCamera.name} />
           </HelmetProvider>
         </BrowserRouter>
       </Provider>

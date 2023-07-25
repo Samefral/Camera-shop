@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
-import { getCamera } from '../../../store/cameras-data/selectors';
-import { AppRoute } from '../../../const';
+import { AppRoute } from '../../const';
 
-function Breadcrumbs(): JSX.Element {
-  const camera = useAppSelector(getCamera);
+type BreadcrumbsProps = {
+  crumbName: string;
+}
 
+function Breadcrumbs({crumbName}: BreadcrumbsProps): JSX.Element {
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -27,7 +27,7 @@ function Breadcrumbs(): JSX.Element {
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">{camera.name}</span>
+            <span className="breadcrumbs__link breadcrumbs__link--active">{crumbName}</span>
           </li>
         </ul>
       </div>

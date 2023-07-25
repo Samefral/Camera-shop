@@ -7,7 +7,7 @@ import { AppRoute } from '../../const';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { formatPrice } from '../../utils/utils';
 import LoadingScreen from '../loading-screen/loading-screen';
-import Breadcrumbs from '../../components/product-page/breadcrumbs/breadcrumbs';
+import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import StarRating from '../../components/star-rating/star-rating';
 import SimilarCamerasList from '../../components/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
@@ -48,7 +48,7 @@ function ProductPage(): JSX.Element {
           <title>{camera.name} - Фотошоп</title>
         </Helmet>
         <div className="page-content">
-          <Breadcrumbs />
+          <Breadcrumbs crumbName={camera.name} />
           <div className="page-content__section">
             <section className="product">
               <div className="container">
