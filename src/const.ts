@@ -28,7 +28,7 @@ export enum APIRoute {
 export enum NameSpace {
   CamerasData = 'CAMERAS_DATA',
   ReviewsData = 'REVIEWS_DATA',
-  Filters = 'FILTERS'
+  CartData = 'CART_DATA',
 }
 
 export const CamerasFilters = {
@@ -64,3 +64,16 @@ export const CamerasFilters = {
 
 export const REDIRECT_TO_ROUTE_ACTION_TYPE = '/redirectToRoute';
 export const CAMERAS_PER_PAGE = 9;
+
+export const CamerasCategory = {
+  fromBackend: {
+    photo: 'Фотоаппарат',
+    video: 'Видеокамера',
+  },
+  inText: {
+    photo: 'фотокамера',
+    video: 'видеокамера'
+  },
+  Фотоаппарат: 'фотокамера',
+  Видеокамера: 'видеокамера',
+} as const;

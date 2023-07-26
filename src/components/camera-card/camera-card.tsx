@@ -1,4 +1,6 @@
 import { Link, generatePath } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getCartCameras } from '../../store/cart-data/selectors';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/utils';
@@ -10,7 +12,10 @@ type ProductCardProps = {
 };
 
 function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
+  const cartCameras = useAppSelector(getCartCameras);
   const cardClassName = isActive ? 'product-card is-active' : 'product-card';
+
+  const inCart = cartCameras.find((cartCamera) => cartCamera.id === camera.id);
 
   return (
     <div className={cardClassName} data-testid="camera-card">
@@ -40,9 +45,20 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">
-          Купить
-        </button>
+        {
+          inCart ?
+            <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to="#">
+              <svg width="16" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-basket"></use>
+              </svg>
+              В корзине
+            </Link>
+            :
+            <button className="btn btn--purple product-card__btn" type="button">
+              Купить
+            </button>
+        }
+
         <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, {
           id: String(camera.id),
           tab: AppRoute.ProductDescriptionTab
