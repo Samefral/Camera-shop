@@ -37,6 +37,10 @@ export const cartData = createSlice({
 
       state.totalPrice += action.payload.price;
     },
+    removeCameraFromCart: (state, action: PayloadAction<Camera>) => {
+      state.cartCameras = state.cartCameras.filter((camera) => camera.id !== action.payload.id);
+      state.totalPrice -= action.payload.price * action.payload.count;
+    },
 
   },
 });
@@ -45,4 +49,5 @@ export const {
   setAddModalOpen,
   setSuccessModalOpen,
   addCameraToCart,
+  removeCameraFromCart
 } = cartData.actions;

@@ -1,3 +1,5 @@
+import { useAppDispatch } from '../../../../hooks';
+import { removeCameraFromCart } from '../../../../store/cart-data/cart-data';
 import { Camera } from '../../../../types/camera';
 import { getCameraCategoryInText, formatPrice } from '../../../../utils/utils';
 
@@ -6,6 +8,12 @@ type CartItemProps = {
 }
 
 function CartItem({camera}: CartItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleDeleteBtnClick = () => {
+    dispatch(removeCameraFromCart(camera));
+  };
+
   return (
     <li className="basket-item">
       <div className="basket-item__img">
@@ -54,7 +62,12 @@ function CartItem({camera}: CartItemProps): JSX.Element {
       <div className="basket-item__total-price">
         <span className="visually-hidden">Общая цена:</span>{camera.count * camera.price}
       </div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Удалить товар"
+        onClick={handleDeleteBtnClick}
+      >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
