@@ -4,12 +4,14 @@ import { NameSpace } from '../../const';
 
 export type CartData = {
   cartCameras: Cameras;
+  totalPrice: number;
   addModalOpen: boolean;
   successModalOpen: boolean;
 };
 
 const initialState: CartData = {
   cartCameras: [],
+  totalPrice: 0,
   addModalOpen: false,
   successModalOpen: false,
 };
@@ -32,6 +34,8 @@ export const cartData = createSlice({
       } else {
         state.cartCameras.push({ ...action.payload, count: 1 });
       }
+
+      state.totalPrice += action.payload.price;
     },
 
   },

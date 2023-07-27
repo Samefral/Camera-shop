@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartList from '../../components/cart-page/cart-list/cart-list';
 import CartPromo from '../../components/cart-page/cart-promo/cart-promo';
+import CartOrder from '../../components/cart-page/cart-order/cart-order';
 
 function CartPage(): JSX.Element {
   return (
@@ -17,23 +18,7 @@ function CartPage(): JSX.Element {
             <CartList />
             <div className="basket__summary">
               <CartPromo />
-              <div className="basket__summary-order">
-                <p className="basket__summary-item">
-                  <span className="basket__summary-text">Всего:</span>
-                  <span className="basket__summary-value">111 390 ₽</span>
-                </p>
-                <p className="basket__summary-item">
-                  <span className="basket__summary-text">Скидка:</span>
-                  <span className="basket__summary-value basket__summary-value--bonus">0 ₽</span>
-                </p>
-                <p className="basket__summary-item">
-                  <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
-                  <span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
-                </p>
-                <button className="btn btn--purple" type="submit">
-                  Оформить заказ
-                </button>
-              </div>
+              <CartOrder />
             </div>
           </div>
         </section>

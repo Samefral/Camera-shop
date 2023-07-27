@@ -6,3 +6,4 @@ export const getAddModalOpenStatus = (state: State): boolean => state[NameSpace.
 export const getSuccessModalOpenStatus = (state: State): boolean => state[NameSpace.CartData].successModalOpen;
 
 export const getCartCameras = (state: State): Cameras => state[NameSpace.CartData].cartCameras;
+export const getTotalPrice = (state: State): number => state[NameSpace.CartData].totalPrice;
