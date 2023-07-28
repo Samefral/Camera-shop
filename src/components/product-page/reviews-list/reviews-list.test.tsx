@@ -4,9 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../../utils/mocks';
-import { NameSpace } from '../../../../const';
-import { sortReviewsByDate } from '../../../../utils/utils';
+import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../utils/mocks';
+import { NameSpace } from '../../../const';
+import { sortReviewsByDate } from '../../../utils/utils';
 import ReviewsList from './reviews-list';
 
 const mockStore = configureMockStore([thunk]);

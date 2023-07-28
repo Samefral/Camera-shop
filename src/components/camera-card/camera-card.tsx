@@ -1,6 +1,7 @@
 import { Link, generatePath } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCartCameras } from '../../store/cart-data/selectors';
+import { setCameraInCartModal } from '../../store/cart-data/cart-data';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { formatPrice } from '../../utils/utils';
@@ -12,6 +13,8 @@ type ProductCardProps = {
 };
 
 function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const cartCameras = useAppSelector(getCartCameras);
   const cardClassName = isActive ? 'product-card is-active' : 'product-card';
 
@@ -47,14 +50,14 @@ function CameraCard({camera, isActive}: ProductCardProps): JSX.Element {
       <div className="product-card__buttons">
         {
           inCart ?
-            <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to="#">
+            <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to={AppRoute.Cart}>
               <svg width="16" height="16" aria-hidden="true">
                 <use xlinkHref="#icon-basket"></use>
               </svg>
               В корзине
             </Link>
             :
-            <button className="btn btn--purple product-card__btn" type="button">
+            <button onClick={() => dispatch(setCameraInCartModal(camera))} className="btn btn--purple product-card__btn" type="button">
               Купить
             </button>
         }

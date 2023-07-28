@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
-import { getReviews } from '../../../../store/reviews-data/selectors';
-import { sortReviewsByDate } from '../../../../utils/utils';
-import { Reviews } from '../../../../types/review';
-import { setAddReviewModalOpen } from '../../../../store/reviews-data/reviews-data';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { getReviews } from '../../../store/reviews-data/selectors';
+import { sortReviewsByDate } from '../../../utils/utils';
+import { Reviews } from '../../../types/review';
+import { setAddReviewModalOpen } from '../../../store/reviews-data/reviews-data';
 import ReviewCard from './review-card/review-card';
 
 const DEFAULT_RENDERED_REVIEWS_COUNT = 3;

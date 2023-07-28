@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { formatDate } from '../../../../../utils/utils';
-import { makeFakeReview } from '../../../../../utils/mocks';
+import { formatDate } from '../../../../utils/utils';
+import { makeFakeReview } from '../../../../utils/mocks';
 import ReviewCard from './review-card';
 
 

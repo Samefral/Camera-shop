@@ -5,14 +5,14 @@ import { NameSpace } from '../../const';
 export type CartData = {
   cartCameras: Cameras;
   totalPrice: number;
-  addModalOpen: boolean;
+  cameraInCartModal: Camera | null;
   successModalOpen: boolean;
 };
 
 const initialState: CartData = {
   cartCameras: [],
   totalPrice: 0,
-  addModalOpen: false,
+  cameraInCartModal: null,
   successModalOpen: false,
 };
 
@@ -20,12 +20,13 @@ export const cartData = createSlice({
   name: NameSpace.CartData,
   initialState,
   reducers: {
-    setAddModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.addModalOpen = action.payload;
+    setCameraInCartModal: (state, action: PayloadAction<Camera | null>) => {
+      state.cameraInCartModal = action.payload;
     },
     setSuccessModalOpen: (state, action: PayloadAction<boolean>) => {
       state.successModalOpen = action.payload;
     },
+
     addCameraToCart: (state, action: PayloadAction<Camera>) => {
       const addedCamera = state.cartCameras.find((camera) => camera.id === action.payload.id);
 
@@ -46,7 +47,7 @@ export const cartData = createSlice({
 });
 
 export const {
-  setAddModalOpen,
+  setCameraInCartModal,
   setSuccessModalOpen,
   addCameraToCart,
   removeCameraFromCart

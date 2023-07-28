@@ -1,8 +1,8 @@
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
-import { getAddRevieModalOpenStatus, getAddReviewSuccessStatus } from '../../../../store/reviews-data/selectors';
-import { setAddReviewModalOpen, setAddReviewSuccessStatus } from '../../../../store/reviews-data/reviews-data';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { getAddRevieModalOpenStatus, getAddReviewSuccessStatus } from '../../../store/reviews-data/selectors';
+import { setAddReviewModalOpen, setAddReviewSuccessStatus } from '../../../store/reviews-data/reviews-data';
 import ReactModal from 'react-modal';
-import AddReviewForm from '../../../forms/add-review-form/add-review-form';
+import AddReviewForm from '../../forms/add-review-form/add-review-form';
 
 function AddReviewModal(): JSX.Element {
   const isModalOpen = useAppSelector(getAddRevieModalOpenStatus);

@@ -8,6 +8,7 @@ import FilterForm from '../../components/forms/filter-form/filter-form';
 import SortForm from '../../components/forms/sort-form/sort-form';
 import MainCamerasList from '../../components/cameras-lists/main-cameras-list/main-cameras-list';
 import LoadingScreen from '../loading-screen/loading-screen';
+import AddToCartModal from '../../components/modals/add-to-cart-modal/add-to-cart-modal';
 
 function CatalogPage(): JSX.Element {
   const isCamerasLoading = useAppSelector(getCamerasDataLoadingStatus);
@@ -57,6 +58,7 @@ function CatalogPage(): JSX.Element {
           </div>
         </section>
       </div>
+      <AddToCartModal />
     </main>
   );
 }

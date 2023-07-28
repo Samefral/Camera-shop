@@ -1,26 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { getAddModalOpenStatus, getSuccessModalOpenStatus } from '../../store/cart-data/selectors';
-import { setAddModalOpen, setSuccessModalOpen } from '../../store/cart-data/cart-data';
-import { addCameraToCart } from '../../store/cart-data/cart-data';
-import { Camera } from '../../types/camera';
-import { formatPrice, getCameraCategoryInText } from '../../utils/utils';
-import { AppRoute } from '../../const';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { getCameraInCartModal, getSuccessModalOpenStatus } from '../../../store/cart-data/selectors';
+import { setCameraInCartModal, setSuccessModalOpen } from '../../../store/cart-data/cart-data';
+import { addCameraToCart } from '../../../store/cart-data/cart-data';
+import { formatPrice, getCameraCategoryInText } from '../../../utils/utils';
+import { AppRoute } from '../../../const';
 import ReactModal from 'react-modal';
 
-type AddToCartModalProps = {
-  camera: Camera;
-}
-
-function AddToCartModal({camera}: AddToCartModalProps): JSX.Element {
-  const isModalOpen = useAppSelector(getAddModalOpenStatus);
+function AddToCartModal(): JSX.Element {
+  const camera = useAppSelector(getCameraInCartModal);
   const isSuccessModalOpen = useAppSelector(getSuccessModalOpenStatus);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onModalClose = () => {
-    dispatch(setAddModalOpen(false));
+    dispatch(setCameraInCartModal(null));
     dispatch(setSuccessModalOpen(false));
   };
 
@@ -36,9 +31,13 @@ function AddToCartModal({camera}: AddToCartModalProps): JSX.Element {
     navigate(AppRoute.Cart);
   };
 
+  if (!camera) {
+    return <div></div>;
+  }
+
   return (
     <ReactModal
-      isOpen={isModalOpen}
+      isOpen
       ariaHideApp={false}
       style={{content: {inset: 'unset'}}}
       bodyOpenClassName='scroll-lock'

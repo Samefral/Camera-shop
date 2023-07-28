@@ -4,8 +4,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../../utils/mocks';
-import { NameSpace } from '../../../../const';
+import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../utils/mocks';
+import { NameSpace } from '../../../const';
 import AddReviewModal from './add-review-modal';
 
 const mockStore = configureMockStore([thunk]);

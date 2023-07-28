@@ -1,6 +1,6 @@
-import { Review } from '../../../../../types/review';
-import { formatDate } from '../../../../../utils/utils';
-import StarRating from '../../../../star-rating/star-rating';
+import { Review } from '../../../../types/review';
+import { formatDate } from '../../../../utils/utils';
+import StarRating from '../../../star-rating/star-rating';
 
 type ReviewCardProps = {
   review: Review;

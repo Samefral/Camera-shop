@@ -3,7 +3,7 @@ import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchCameraByIdAction, fetchSimilarCamerasAction, fetchReviewsAction } from '../../store/api-actions';
-import { setAddModalOpen } from '../../store/cart-data/cart-data';
+import { setCameraInCartModal } from '../../store/cart-data/cart-data';
 import { AppRoute } from '../../const';
 import { getCamera, getCameraDataLoadingStatus } from '../../store/cameras-data/selectors';
 import { formatPrice } from '../../utils/utils';
@@ -12,9 +12,9 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import StarRating from '../../components/star-rating/star-rating';
 import SimilarCamerasList from '../../components/cameras-lists/similar-cameras-list/similar-cameras-list';
 import Tabs from '../../components/product-page/tabs/tabs';
-import ReviewsList from '../../components/product-page/product-reviews/reviews-list/reviews-list';
-import AddReviewModal from '../../components/product-page/product-reviews/add-review-modal/add-review-modal';
-import AddToCartModal from '../../components/add-to-cart-modal/add-to-cart-modal';
+import ReviewsList from '../../components/product-page/reviews-list/reviews-list';
+import AddReviewModal from '../../components/modals/add-review-modal/add-review-modal';
+import AddToCartModal from '../../components/modals/add-to-cart-modal/add-to-cart-modal';
 import UpBtn from '../../components/product-page/up-btn/up-btn';
 
 function ProductPage(): JSX.Element {
@@ -81,7 +81,7 @@ function ProductPage(): JSX.Element {
                   <p className="product__price">
                     <span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}
                   </p>
-                  <button onClick={() => dispatch(setAddModalOpen(true))} className="btn btn--purple" type="button">
+                  <button onClick={() => dispatch(setCameraInCartModal(camera))} className="btn btn--purple" type="button">
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
                     </svg>
@@ -96,7 +96,7 @@ function ProductPage(): JSX.Element {
           <ReviewsList />
         </div>
         <AddReviewModal />
-        <AddToCartModal camera={camera}/>
+        <AddToCartModal />
       </main>
       <UpBtn />
     </React.Fragment>
