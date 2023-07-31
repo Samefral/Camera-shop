@@ -1,7 +1,8 @@
 import { useAppDispatch } from '../../../../hooks';
-import { removeCameraFromCart } from '../../../../store/cart-data/cart-data';
+import { addCameraToCart, decreaseCameraCount, removeCameraFromCart } from '../../../../store/cart-data/cart-data';
 import { Camera } from '../../../../types/camera';
 import { getCameraCategoryInText, formatPrice } from '../../../../utils/utils';
+import { MAX_CART_ITEM_COUNT } from '../../../../const';
 
 type CartItemProps = {
   camera: Camera;
@@ -9,6 +10,14 @@ type CartItemProps = {
 
 function CartItem({camera}: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const handleIncreaseBtnClick = () => {
+    dispatch(addCameraToCart(camera));
+  };
+
+  const handleDecreaseBtnClick = () => {
+    dispatch(decreaseCameraCount(camera));
+  };
 
   const handleDeleteBtnClick = () => {
     dispatch(removeCameraFromCart(camera));
@@ -46,14 +55,24 @@ function CartItem({camera}: CartItemProps): JSX.Element {
         <span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}
       </p>
       <div className="quantity">
-        <button className="btn-icon btn-icon--prev" disabled aria-label="уменьшить количество товара">
+        <button
+          className="btn-icon btn-icon--prev"
+          aria-label="уменьшить количество товара"
+          onClick={handleDecreaseBtnClick}
+          disabled={camera.count === 1}
+        >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
         <label className="visually-hidden" htmlFor="counter2"></label>
         <input type="number" id="counter2" value={camera.count} min="1" max="99" aria-label="количество товара" />
-        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара">
+        <button
+          className="btn-icon btn-icon--next"
+          aria-label="увеличить количество товара"
+          onClick={handleIncreaseBtnClick}
+          disabled={camera.count === MAX_CART_ITEM_COUNT}
+        >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>

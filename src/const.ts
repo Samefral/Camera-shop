@@ -64,6 +64,7 @@ export const CamerasFilters = {
 
 export const REDIRECT_TO_ROUTE_ACTION_TYPE = '/redirectToRoute';
 export const CAMERAS_PER_PAGE = 9;
+export const MAX_CART_ITEM_COUNT = 99;
 
 export const CamerasCategory = {
   fromBackend: {

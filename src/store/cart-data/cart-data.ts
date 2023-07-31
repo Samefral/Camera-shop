@@ -41,6 +41,15 @@ export const cartData = createSlice({
       state.totalCount += 1;
       state.totalPrice += action.payload.price;
     },
+    decreaseCameraCount: (state, action: PayloadAction<Camera>) => {
+      const cameraToDecrease = state.cameras.find((camera) => camera.id === action.payload.id);
+
+      if (cameraToDecrease) {
+        cameraToDecrease.count -= 1;
+        state.totalCount -= 1;
+        state.totalPrice -= action.payload.price;
+      }
+    },
     removeCameraFromCart: (state, action: PayloadAction<Camera>) => {
       state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
       state.totalCount -= action.payload.count;
@@ -54,5 +63,6 @@ export const {
   setCameraInCartModal,
   setSuccessModalOpen,
   addCameraToCart,
+  decreaseCameraCount,
   removeCameraFromCart
 } = cartData.actions;
