@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../../../hooks';
-import { addCameraToCart, decreaseCameraCount, removeCameraFromCart } from '../../../../store/cart-data/cart-data';
+import { addCameraToCart, decreaseCameraCount, setCameraCount, removeCameraFromCart } from '../../../../store/cart-data/cart-data';
 import { Camera } from '../../../../types/camera';
 import { getCameraCategoryInText, formatPrice } from '../../../../utils/utils';
 import { MAX_CART_ITEM_COUNT } from '../../../../const';
@@ -21,6 +21,33 @@ function CartItem({camera}: CartItemProps): JSX.Element {
 
   const handleDeleteBtnClick = () => {
     dispatch(removeCameraFromCart(camera));
+  };
+
+  const handleInputCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
+
+    if (evt.target.value[0] === '0') {
+      evt.target.value = '';
+    }
+
+    if (value < 0) {
+      dispatch(setCameraCount({id: camera.id, count: 1}));
+      return;
+    }
+
+    if (value > MAX_CART_ITEM_COUNT) {
+      dispatch(setCameraCount({id: camera.id, count: MAX_CART_ITEM_COUNT}));
+      return;
+    }
+
+    dispatch(setCameraCount({id: camera.id, count: value}));
+  };
+
+  const handleInputCountBlur = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
+    if (value < 1) {
+      dispatch(setCameraCount({id: camera.id, count: 1}));
+    }
   };
 
   return (
@@ -59,14 +86,23 @@ function CartItem({camera}: CartItemProps): JSX.Element {
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
           onClick={handleDecreaseBtnClick}
-          disabled={camera.count === 1}
+          disabled={camera.count <= 1}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
-        <label className="visually-hidden" htmlFor="counter2"></label>
-        <input type="number" id="counter2" value={camera.count} min="1" max="99" aria-label="количество товара" />
+        <label className="visually-hidden" htmlFor={`counter-${camera.id}`}></label>
+        <input
+          type="number"
+          id={`counter-${camera.id}`}
+          value={camera.count}
+          min="1"
+          max="99"
+          aria-label="количество товара"
+          onChange={handleInputCountChange}
+          onBlur={handleInputCountBlur}
+        />
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"

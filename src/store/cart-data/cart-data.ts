@@ -18,6 +18,12 @@ const initialState: CartData = {
   successModalOpen: false,
 };
 
+const updateOnRemoveOrDecrease = (state: CartData, count: number, price: number) => {
+  state.totalCount -= count;
+  state.totalPrice -= price * count;
+};
+
+
 export const cartData = createSlice({
   name: NameSpace.CartData,
   initialState,
@@ -46,14 +52,22 @@ export const cartData = createSlice({
 
       if (cameraToDecrease) {
         cameraToDecrease.count -= 1;
-        state.totalCount -= 1;
-        state.totalPrice -= action.payload.price;
+        updateOnRemoveOrDecrease(state, 1, action.payload.price);
+      }
+    },
+    setCameraCount: (state, action: PayloadAction<{id: number; count: number}>) => {
+      const cameraToUpdate = state.cameras.find((camera) => camera.id === action.payload.id);
+
+      if (cameraToUpdate) {
+        updateOnRemoveOrDecrease(state, cameraToUpdate.count, cameraToUpdate.price);
+        cameraToUpdate.count = action.payload.count;
+        state.totalCount += action.payload.count;
+        state.totalPrice += cameraToUpdate.price * action.payload.count;
       }
     },
     removeCameraFromCart: (state, action: PayloadAction<Camera>) => {
       state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
-      state.totalCount -= action.payload.count;
-      state.totalPrice -= action.payload.price * action.payload.count;
+      updateOnRemoveOrDecrease(state, action.payload.count, action.payload.price);
     },
 
   },
@@ -64,5 +78,6 @@ export const {
   setSuccessModalOpen,
   addCameraToCart,
   decreaseCameraCount,
+  setCameraCount,
   removeCameraFromCart
 } = cartData.actions;
