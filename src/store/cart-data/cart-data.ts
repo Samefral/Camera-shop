@@ -5,6 +5,7 @@ import { NameSpace } from '../../const';
 export type CartData = {
   cartCameras: Cameras;
   totalPrice: number;
+  totalCount: number;
   cameraInCartModal: Camera | null;
   successModalOpen: boolean;
 };
@@ -12,6 +13,7 @@ export type CartData = {
 const initialState: CartData = {
   cartCameras: [],
   totalPrice: 0,
+  totalCount: 0,
   cameraInCartModal: null,
   successModalOpen: false,
 };
@@ -36,10 +38,12 @@ export const cartData = createSlice({
         state.cartCameras.push({ ...action.payload, count: 1 });
       }
 
+      state.totalCount += 1;
       state.totalPrice += action.payload.price;
     },
     removeCameraFromCart: (state, action: PayloadAction<Camera>) => {
       state.cartCameras = state.cartCameras.filter((camera) => camera.id !== action.payload.id);
+      state.totalCount -= action.payload.count;
       state.totalPrice -= action.payload.price * action.payload.count;
     },
 

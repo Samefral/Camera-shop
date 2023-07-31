@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getCamerasDataLoadingStatus } from '../../store/cameras-data/selectors';
+import { getTotalCartProducts } from '../../store/cart-data/selectors';
 import { AppRoute } from '../../const';
 import SearchForm from '../forms/search-form/search-form';
 
 function Header(): JSX.Element {
   const isCamerasLoading = useAppSelector(getCamerasDataLoadingStatus);
+  const totalCartProducts = useAppSelector(getTotalCartProducts);
 
   return (
     <header className="header" id="header">
@@ -36,6 +38,7 @@ function Header(): JSX.Element {
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
+          {totalCartProducts > 0 ? <span className="header__basket-count">{totalCartProducts}</span> : null}
         </Link>
       </div>
     </header>
