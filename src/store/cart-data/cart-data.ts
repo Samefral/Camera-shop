@@ -3,7 +3,7 @@ import { Camera, Cameras } from '../../types/camera';
 import { NameSpace } from '../../const';
 
 export type CartData = {
-  cartCameras: Cameras;
+  cameras: Cameras;
   totalPrice: number;
   totalCount: number;
   cameraInCartModal: Camera | null;
@@ -11,7 +11,7 @@ export type CartData = {
 };
 
 const initialState: CartData = {
-  cartCameras: [],
+  cameras: [],
   totalPrice: 0,
   totalCount: 0,
   cameraInCartModal: null,
@@ -30,19 +30,19 @@ export const cartData = createSlice({
     },
 
     addCameraToCart: (state, action: PayloadAction<Camera>) => {
-      const addedCamera = state.cartCameras.find((camera) => camera.id === action.payload.id);
+      const addedCamera = state.cameras.find((camera) => camera.id === action.payload.id);
 
       if (addedCamera) {
         addedCamera.count++;
       } else {
-        state.cartCameras.push({ ...action.payload, count: 1 });
+        state.cameras.push({ ...action.payload, count: 1 });
       }
 
       state.totalCount += 1;
       state.totalPrice += action.payload.price;
     },
     removeCameraFromCart: (state, action: PayloadAction<Camera>) => {
-      state.cartCameras = state.cartCameras.filter((camera) => camera.id !== action.payload.id);
+      state.cameras = state.cameras.filter((camera) => camera.id !== action.payload.id);
       state.totalCount -= action.payload.count;
       state.totalPrice -= action.payload.price * action.payload.count;
     },

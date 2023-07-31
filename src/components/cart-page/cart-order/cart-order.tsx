@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../../hooks';
-import { getTotalPrice } from '../../../store/cart-data/selectors';
+import { getTotalCartPrice } from '../../../store/cart-data/selectors';
 import { formatPrice } from '../../../utils/utils';
 
 function CartOrder(): JSX.Element {
-  const totalPrice = useAppSelector(getTotalPrice);
+  const totalPrice = useAppSelector(getTotalCartPrice);
 
   return (
     <div className="basket__summary-order">

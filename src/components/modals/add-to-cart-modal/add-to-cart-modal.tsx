@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { getCameraInCartModal, getSuccessModalOpenStatus } from '../../../store/cart-data/selectors';
+import { getCameraInCartModal, getCartSuccessModalStatus } from '../../../store/cart-data/selectors';
 import { setCameraInCartModal, setSuccessModalOpen } from '../../../store/cart-data/cart-data';
 import { addCameraToCart } from '../../../store/cart-data/cart-data';
 import { formatPrice, getCameraCategoryInText } from '../../../utils/utils';
@@ -9,7 +9,7 @@ import ReactModal from 'react-modal';
 
 function AddToCartModal(): JSX.Element {
   const camera = useAppSelector(getCameraInCartModal);
-  const isSuccessModalOpen = useAppSelector(getSuccessModalOpenStatus);
+  const isSuccessModalOpen = useAppSelector(getCartSuccessModalStatus);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
