@@ -3,6 +3,7 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartList from '../../components/cart-page/cart-list/cart-list';
 import CartPromo from '../../components/cart-page/cart-promo/cart-promo';
 import CartOrder from '../../components/cart-page/cart-order/cart-order';
+import RemoveFromCartModal from '../../components/modals/remove-from-cart-modal/remove-from-cart-modal';
 
 function CartPage(): JSX.Element {
   return (
@@ -23,6 +24,7 @@ function CartPage(): JSX.Element {
           </div>
         </section>
       </div>
+      <RemoveFromCartModal />
     </main>
   );
 }

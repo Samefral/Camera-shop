@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../../../hooks';
-import { addCameraToCart, decreaseCameraCount, setCameraCount, removeCameraFromCart } from '../../../../store/cart-data/cart-data';
+import { addCameraToCart, decreaseCameraCount, setCameraCount, setCameraInCartModal } from '../../../../store/cart-data/cart-data';
 import { Camera } from '../../../../types/camera';
 import { getCameraCategoryInText, formatPrice } from '../../../../utils/utils';
 import { MAX_CART_ITEM_COUNT } from '../../../../const';
@@ -19,8 +19,8 @@ function CartItem({camera}: CartItemProps): JSX.Element {
     dispatch(decreaseCameraCount(camera));
   };
 
-  const handleDeleteBtnClick = () => {
-    dispatch(removeCameraFromCart(camera));
+  const handleRemoveBtnClick = () => {
+    dispatch(setCameraInCartModal(camera));
   };
 
   const handleInputCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,7 +121,7 @@ function CartItem({camera}: CartItemProps): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Удалить товар"
-        onClick={handleDeleteBtnClick}
+        onClick={handleRemoveBtnClick}
       >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
