@@ -62,10 +62,6 @@ export const CamerasFilters = {
   }
 } as const;
 
-export const REDIRECT_TO_ROUTE_ACTION_TYPE = '/redirectToRoute';
-export const CAMERAS_PER_PAGE = 9;
-export const MAX_CART_ITEM_COUNT = 99;
-
 export const CamerasCategory = {
   fromBackend: {
     photo: 'Фотоаппарат',
@@ -78,3 +74,7 @@ export const CamerasCategory = {
   Фотоаппарат: 'фотокамера',
   Видеокамера: 'видеокамера',
 } as const;
+
+export const REDIRECT_TO_ROUTE_ACTION_TYPE = '/redirectToRoute';
+export const CAMERAS_PER_PAGE = 9;
+export const MAX_CART_ITEM_COUNT = 99;

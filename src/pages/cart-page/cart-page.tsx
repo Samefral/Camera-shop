@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartList from '../../components/cart-page/cart-list/cart-list';
-import CartPromo from '../../components/cart-page/cart-promo/cart-promo';
+import CartPromoForm from '../../components/forms/cart-promo-form/cart-promo-form';
 import CartOrder from '../../components/cart-page/cart-order/cart-order';
 import RemoveFromCartModal from '../../components/modals/remove-from-cart-modal/remove-from-cart-modal';
 
@@ -18,7 +18,7 @@ function CartPage(): JSX.Element {
             <h1 className="title title--h2">Корзина</h1>
             <CartList />
             <div className="basket__summary">
-              <CartPromo />
+              <CartPromoForm />
               <CartOrder />
             </div>
           </div>

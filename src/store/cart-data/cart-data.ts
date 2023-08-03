@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Camera, Cameras } from '../../types/camera';
 import { NameSpace } from '../../const';
+import { fetchDiscount } from '../api-actions';
 
 export type CartData = {
   cameras: Cameras;
   totalPrice: number;
   totalCount: number;
+  discount: number;
+  discountCouponError: boolean;
+  discountCopounSuccess: boolean;
   cameraInCartModal: Camera | null;
   successModalOpen: boolean;
 };
@@ -14,6 +18,9 @@ const initialState: CartData = {
   cameras: [],
   totalPrice: 0,
   totalCount: 0,
+  discount: 0,
+  discountCouponError: false,
+  discountCopounSuccess: false,
   cameraInCartModal: null,
   successModalOpen: false,
 };
@@ -70,7 +77,27 @@ export const cartData = createSlice({
       updateOnRemoveOrDecrease(state, action.payload.count, action.payload.price);
     },
 
+    setCouponError: (state, action: PayloadAction<boolean>) => {
+      state.discountCouponError = action.payload;
+    },
+    setCouponSuccess: (state, action: PayloadAction<boolean>) => {
+      state.discountCopounSuccess = action.payload;
+    },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchDiscount.pending, (state) => {
+        state.discountCouponError = false;
+        state.discountCopounSuccess = false;
+      })
+      .addCase(fetchDiscount.fulfilled, (state, action) => {
+        state.discount = action.payload;
+        state.discountCopounSuccess = true;
+      })
+      .addCase(fetchDiscount.rejected, (state) => {
+        state.discountCouponError = true;
+      });
+  }
 });
 
 export const {
@@ -79,5 +106,7 @@ export const {
   addCameraToCart,
   decreaseCameraCount,
   setCameraCount,
-  removeCameraFromCart
+  removeCameraFromCart,
+  setCouponError,
+  setCouponSuccess,
 } = cartData.actions;
