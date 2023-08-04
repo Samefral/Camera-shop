@@ -4,6 +4,7 @@ import CartList from '../../components/cart-page/cart-list/cart-list';
 import CartPromoForm from '../../components/forms/cart-promo-form/cart-promo-form';
 import CartOrder from '../../components/cart-page/cart-order/cart-order';
 import RemoveFromCartModal from '../../components/modals/remove-from-cart-modal/remove-from-cart-modal';
+import OrderSuccessModal from '../../components/modals/order-success-modal/order-success-modal';
 
 function CartPage(): JSX.Element {
   return (
@@ -25,6 +26,7 @@ function CartPage(): JSX.Element {
         </section>
       </div>
       <RemoveFromCartModal />
+      <OrderSuccessModal />
     </main>
   );
 }

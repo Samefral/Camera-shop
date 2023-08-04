@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Camera, Cameras } from '../../types/camera';
 import { NameSpace } from '../../const';
-import { fetchDiscount } from '../api-actions';
+import { fetchDiscountAction, postOrderAction } from '../api-actions';
 
 export type CartData = {
   cameras: Cameras;
   totalPrice: number;
   totalCount: number;
   discount: number;
+  discountCoupon: string | null;
   discountCouponError: boolean;
   discountCopounSuccess: boolean;
   cameraInCartModal: Camera | null;
   successModalOpen: boolean;
+  orderSucces: boolean;
 };
 
 const initialState: CartData = {
@@ -19,10 +21,12 @@ const initialState: CartData = {
   totalPrice: 0,
   totalCount: 0,
   discount: 0,
+  discountCoupon: null,
   discountCouponError: false,
   discountCopounSuccess: false,
   cameraInCartModal: null,
   successModalOpen: false,
+  orderSucces: false,
 };
 
 const updateOnRemoveOrDecrease = (state: CartData, count: number, price: number) => {
@@ -77,26 +81,52 @@ export const cartData = createSlice({
       updateOnRemoveOrDecrease(state, action.payload.count, action.payload.price);
     },
 
+    setCoupon: (state, action: PayloadAction<string | null>) => {
+      state.discountCoupon = action.payload;
+    },
     setCouponError: (state, action: PayloadAction<boolean>) => {
       state.discountCouponError = action.payload;
     },
     setCouponSuccess: (state, action: PayloadAction<boolean>) => {
       state.discountCopounSuccess = action.payload;
     },
+
+    setOrderSucccess: (state, action: PayloadAction<boolean>) => {
+      state.orderSucces = action.payload;
+    },
+    resetOrderCart: (state) => {
+      state.cameras = [];
+      state.totalCount = 0;
+      state.totalPrice = 0;
+      state.discount = 0;
+      state.discountCoupon = null;
+      state.discountCouponError = false;
+      state.discountCopounSuccess = false;
+    },
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchDiscount.pending, (state) => {
+      .addCase(fetchDiscountAction.pending, (state) => {
         state.discountCouponError = false;
         state.discountCopounSuccess = false;
       })
-      .addCase(fetchDiscount.fulfilled, (state, action) => {
+      .addCase(fetchDiscountAction.fulfilled, (state, action) => {
         state.discount = action.payload;
         state.discountCopounSuccess = true;
       })
-      .addCase(fetchDiscount.rejected, (state) => {
+      .addCase(fetchDiscountAction.rejected, (state) => {
         state.discountCouponError = true;
+      })
+      .addCase(postOrderAction.pending, (state) => {
+        state.orderSucces = false;
+      })
+      .addCase(postOrderAction.fulfilled, (state) => {
+        state.orderSucces = true;
+      })
+      .addCase(postOrderAction.rejected, (state) => {
+        state.orderSucces = false;
       });
+
   }
 });
 
@@ -107,6 +137,9 @@ export const {
   decreaseCameraCount,
   setCameraCount,
   removeCameraFromCart,
+  setCoupon,
   setCouponError,
   setCouponSuccess,
+  setOrderSucccess,
+  resetOrderCart,
 } = cartData.actions;

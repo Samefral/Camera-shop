@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { getCartCouponError, getCartCouponSuccess } from '../../../store/cart-data/selectors';
-import { fetchDiscount } from '../../../store/api-actions';
-import { setCouponError, setCouponSuccess } from '../../../store/cart-data/cart-data';
+import { fetchDiscountAction } from '../../../store/api-actions';
+import { setCoupon, setCouponError, setCouponSuccess } from '../../../store/cart-data/cart-data';
+
+const AvailablePromoCodes = ['camera-333', 'camera-444', 'camera-555'] as const;
 
 function CartPromoForm(): JSX.Element {
   const promoInputRef = useRef<HTMLInputElement>(null);
@@ -21,10 +23,16 @@ function CartPromoForm(): JSX.Element {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(fetchDiscount(promoInputRef.current?.value as string));
+    if (promoInputRef.current) {
+      dispatch(fetchDiscountAction(promoInputRef.current.value));
+      if (AvailablePromoCodes.includes(promoInputRef.current?.value as typeof AvailablePromoCodes[number])) {
+        dispatch(setCoupon(promoInputRef.current?.value ));
+      }
+    }
   };
 
   const handleInputFocus = () => {
+    dispatch(setCoupon(null));
     dispatch(setCouponError(false));
     dispatch(setCouponSuccess(false));
   };

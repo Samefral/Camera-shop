@@ -10,5 +10,8 @@ export const getTotalCartProducts = (state: State): number => state[NameSpace.Ca
 export const getTotalCartPrice = (state: State): number => state[NameSpace.CartData].totalPrice;
 
 export const getCartDiscount = (state: State): number => state[NameSpace.CartData].discount;
+export const getCartDiscountCoupon = (state: State) => state[NameSpace.CartData].discountCoupon;
 export const getCartCouponError = (state: State): boolean => state[NameSpace.CartData].discountCouponError;
 export const getCartCouponSuccess = (state: State): boolean => state[NameSpace.CartData].discountCopounSuccess;
+
+export const getCartOrderSuccess = (state: State): boolean => state[NameSpace.CartData].orderSucces;

@@ -4,6 +4,7 @@ import { AppDispatch, State } from '../types/state.js';
 import { Cameras, Camera, PromoCamera } from '../types/camera.js';
 import { Review, Reviews, PostReviewData } from '../types/review.js';
 import { APIRoute } from '../const';
+import { PostOrderData } from '../types/order.js';
 
 async function fetchCameraRating(api: AxiosInstance, cameraId: number) {
   const reviews = (await api.get<Reviews>(`${APIRoute.Cameras}/${cameraId}/${APIRoute.CamerasReviews}`)).data;
@@ -94,7 +95,7 @@ export const postReviewAction = createAsyncThunk<Review, PostReviewData, {
   }
 );
 
-export const fetchDiscount = createAsyncThunk<number, string, {
+export const fetchDiscountAction = createAsyncThunk<number, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -102,6 +103,18 @@ export const fetchDiscount = createAsyncThunk<number, string, {
   'data/fetchDiscount',
   async (coupon, {extra: api}) => {
     const {data} = await api.post<number>(APIRoute.CouponVerification, {coupon});
+    return data;
+  }
+);
+
+export const postOrderAction = createAsyncThunk<string, PostOrderData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postOrder',
+  async ({camerasIds, coupon}, {extra: api}) => {
+    const {data} = await api.post<string>(APIRoute.OrderPost, {camerasIds, coupon});
     return data;
   }
 );
