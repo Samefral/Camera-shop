@@ -1,18 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { getCartOrderSuccess } from '../../../store/cart-data/selectors';
-import { setOrderSucccess } from '../../../store/cart-data/cart-data';
-import { AppRoute } from '../../../const';
+import { getCartOrderStatus } from '../../../store/cart-data/selectors';
+import { setOrderStatus } from '../../../store/cart-data/cart-data';
+import { AppRoute, OrderStatus } from '../../../const';
 import ReactModal from 'react-modal';
 
 function OrderSuccessModal(): JSX.Element {
-  const isOrderSuccess = useAppSelector(getCartOrderSuccess);
+  const orderStatus = useAppSelector(getCartOrderStatus);
+  const isOrderSuccess = orderStatus === OrderStatus.Fulfilled;
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleModalClose = () => {
-    dispatch(setOrderSucccess(false));
+    dispatch(setOrderStatus(OrderStatus.Null));
   };
 
   return (

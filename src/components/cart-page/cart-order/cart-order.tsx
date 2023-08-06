@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { postOrderAction } from '../../../store/api-actions';
-import { resetOrderCart } from '../../../store/cart-data/cart-data';
 import { PostOrderData } from '../../../types/order';
 import { getTotalCartPrice, getCartDiscount, getCartCameras, getCartDiscountCoupon } from '../../../store/cart-data/selectors';
 import { formatPrice } from '../../../utils/utils';
@@ -24,7 +23,6 @@ function CartOrder(): JSX.Element {
 
   const handleOrderBtnClick = () => {
     dispatch(postOrderAction(postData));
-    dispatch(resetOrderCart());
   };
 
   return (

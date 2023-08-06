@@ -31,6 +31,13 @@ export enum NameSpace {
   CartData = 'CART_DATA',
 }
 
+export enum OrderStatus {
+  Null = 'null',
+  Pending = 'pending',
+  Fulfilled = 'fulfilled',
+  Rejected = 'rejected',
+}
+
 export const CamerasFilters = {
   Price: {
     minParamName: 'price_gte',

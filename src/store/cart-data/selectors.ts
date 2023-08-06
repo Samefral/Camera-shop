@@ -14,4 +14,4 @@ export const getCartDiscountCoupon = (state: State) => state[NameSpace.CartData]
 export const getCartCouponError = (state: State): boolean => state[NameSpace.CartData].discountCouponError;
 export const getCartCouponSuccess = (state: State): boolean => state[NameSpace.CartData].discountCopounSuccess;
 
-export const getCartOrderSuccess = (state: State): boolean => state[NameSpace.CartData].orderSucces;
+export const getCartOrderStatus = (state: State): string => state[NameSpace.CartData].orderStatus;

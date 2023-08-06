@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Camera, Cameras } from '../../types/camera';
-import { NameSpace } from '../../const';
+import { NameSpace, OrderStatus } from '../../const';
 import { fetchDiscountAction, postOrderAction } from '../api-actions';
 
 export type CartData = {
@@ -13,7 +13,7 @@ export type CartData = {
   discountCopounSuccess: boolean;
   cameraInCartModal: Camera | null;
   successModalOpen: boolean;
-  orderSucces: boolean;
+  orderStatus: string;
 };
 
 const initialState: CartData = {
@@ -26,7 +26,7 @@ const initialState: CartData = {
   discountCopounSuccess: false,
   cameraInCartModal: null,
   successModalOpen: false,
-  orderSucces: false,
+  orderStatus: OrderStatus.Null,
 };
 
 const updateOnRemoveOrDecrease = (state: CartData, count: number, price: number) => {
@@ -34,6 +34,15 @@ const updateOnRemoveOrDecrease = (state: CartData, count: number, price: number)
   state.totalPrice -= price * count;
 };
 
+const clearCart = (state: CartData) => {
+  state.cameras = [];
+  state.totalCount = 0;
+  state.totalPrice = 0;
+  state.discount = 0;
+  state.discountCoupon = null;
+  state.discountCouponError = false;
+  state.discountCopounSuccess = false;
+};
 
 export const cartData = createSlice({
   name: NameSpace.CartData,
@@ -91,18 +100,11 @@ export const cartData = createSlice({
       state.discountCopounSuccess = action.payload;
     },
 
-    setOrderSucccess: (state, action: PayloadAction<boolean>) => {
-      state.orderSucces = action.payload;
+    setOrderStatus: (state, action: PayloadAction<string>) => {
+      state.orderStatus = action.payload;
     },
-    resetOrderCart: (state) => {
-      state.cameras = [];
-      state.totalCount = 0;
-      state.totalPrice = 0;
-      state.discount = 0;
-      state.discountCoupon = null;
-      state.discountCouponError = false;
-      state.discountCopounSuccess = false;
-    },
+    clearOrderCart: (state) => clearCart(state),
+
   },
   extraReducers(builder) {
     builder
@@ -117,14 +119,16 @@ export const cartData = createSlice({
       .addCase(fetchDiscountAction.rejected, (state) => {
         state.discountCouponError = true;
       })
+
       .addCase(postOrderAction.pending, (state) => {
-        state.orderSucces = false;
+        state.orderStatus = OrderStatus.Pending;
       })
       .addCase(postOrderAction.fulfilled, (state) => {
-        state.orderSucces = true;
+        state.orderStatus = OrderStatus.Fulfilled;
+        clearCart(state);
       })
       .addCase(postOrderAction.rejected, (state) => {
-        state.orderSucces = false;
+        state.orderStatus = OrderStatus.Rejected;
       });
 
   }
@@ -140,6 +144,6 @@ export const {
   setCoupon,
   setCouponError,
   setCouponSuccess,
-  setOrderSucccess,
-  resetOrderCart,
+  setOrderStatus,
+  clearOrderCart,
 } = cartData.actions;
