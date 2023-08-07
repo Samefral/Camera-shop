@@ -12,8 +12,15 @@ function OrderSuccessModal(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleModalClose = () => {
+  const onModalClose = () => {
     dispatch(setOrderStatus(OrderStatus.Null));
+  };
+
+  const handleModalClose = () => onModalClose();
+
+  const handleNavigateBtnClick = () => {
+    onModalClose();
+    navigate(AppRoute.Catalog);
   };
 
   return (
@@ -41,7 +48,7 @@ function OrderSuccessModal(): JSX.Element {
               <button
                 className="btn btn--purple modal__btn modal__btn--fit-width"
                 type="button"
-                onClick={() => navigate(AppRoute.Catalog)}
+                onClick={handleNavigateBtnClick}
               >
                 Вернуться к покупкам
               </button>
