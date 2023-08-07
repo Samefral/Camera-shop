@@ -32,7 +32,6 @@ function CartPromoForm(): JSX.Element {
   };
 
   const handleInputFocus = () => {
-    dispatch(setCoupon(null));
     dispatch(setCouponError(false));
     dispatch(setCouponSuccess(false));
   };
