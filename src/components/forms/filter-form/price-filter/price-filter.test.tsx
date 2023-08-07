@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../../utils/mocks';
-import { NameSpace } from '../../../../const';
+import { NameSpace, OrderStatus } from '../../../../const';
 import thunk from 'redux-thunk';
 import PriceFilter from './price-filter';
 
@@ -39,6 +39,18 @@ const store = {
     addReviewModalOpen: false,
     addReviewSuccessStatus: false,
   },
+  [NameSpace.CartData]: {
+    cameras: [],
+    totalPrice: 0,
+    totalCount: 0,
+    discount: 0,
+    discountCoupon: null,
+    discountCouponError: false,
+    discountCopounSuccess: false,
+    cameraInCartModal: null,
+    successModalOpen: false,
+    orderStatus: OrderStatus.Null,
+  }
 };
 
 const fakeApp = (
@@ -60,20 +72,20 @@ describe('PriceFilter component', () => {
   test('renders the PriceFilter component', () => {
     render(fakeApp);
     expect(screen.getByText('Цена, ₽')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(`от ${minPossiblePrice}`)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(`до ${maxPossiblePrice}`)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(`${minPossiblePrice}`)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(`${maxPossiblePrice}`)).toBeInTheDocument();
   });
 
   test('updates minPriceInput when min price is entered', () => {
     render(fakeApp);
-    const minPriceInput: HTMLInputElement = screen.getByPlaceholderText(`от ${minPossiblePrice}`);
+    const minPriceInput: HTMLInputElement = screen.getByPlaceholderText(`${minPossiblePrice}`);
     fireEvent.input(minPriceInput, { target: { value: '1000' } });
     expect(minPriceInput.value).toBe('1000');
   });
 
   test('updates maxPriceInput when max price is entered', () => {
     render(fakeApp);
-    const maxPriceInput: HTMLInputElement = screen.getByPlaceholderText(`до ${maxPossiblePrice}`);
+    const maxPriceInput: HTMLInputElement = screen.getByPlaceholderText(`${maxPossiblePrice}`);
     fireEvent.input(maxPriceInput, { target: { value: '5000' } });
     expect(maxPriceInput.value).toBe('5000');
   });

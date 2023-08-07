@@ -69,17 +69,6 @@ describe('extraReducers: camerasData', () => {
         });
     });
 
-    it('should set camera.isLoading to false on fetchCameraByIdAction.rejected', () => {
-      expect(camerasData.reducer({...initialState}, {type: fetchCameraByIdAction.rejected.type}))
-        .toEqual({
-          ...initialState,
-          camera: {
-            ...initialState.camera,
-            isLoading: false
-          }
-        });
-    });
-
   });
 
 

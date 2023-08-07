@@ -7,7 +7,7 @@ import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../hocs/history-route/history-route';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../utils/mocks';
-import { NameSpace } from '../../const';
+import { NameSpace, OrderStatus } from '../../const';
 import ProductPage from './product-page';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -46,6 +46,18 @@ const store = {
     addReviewModalOpen: false,
     addReviewSuccessStatus: false,
   },
+  [NameSpace.CartData]: {
+    cameras: [],
+    totalPrice: 0,
+    totalCount: 0,
+    discount: 0,
+    discountCoupon: null,
+    discountCouponError: false,
+    discountCopounSuccess: false,
+    cameraInCartModal: null,
+    successModalOpen: false,
+    orderStatus: OrderStatus.Null,
+  }
 };
 
 const cameraLoadingState = mockStore({
@@ -61,6 +73,9 @@ const cameraLoadingState = mockStore({
       data: mockPromoCamera,
       isLoading: false,
     }
+  },
+  [NameSpace.CartData]: {
+    ...store.CART_DATA
   }
 });
 

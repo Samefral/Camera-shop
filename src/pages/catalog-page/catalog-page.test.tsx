@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../hocs/history-route/history-route';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../utils/mocks';
-import { NameSpace } from '../../const';
+import { NameSpace, OrderStatus } from '../../const';
 import CatalogPage from './catalog-page';
 
 
@@ -40,6 +40,18 @@ const store = {
     addReviewModalOpen: false,
     addReviewSuccessStatus: false,
   },
+  [NameSpace.CartData]: {
+    cameras: [],
+    totalPrice: 0,
+    totalCount: 0,
+    discount: 0,
+    discountCoupon: null,
+    discountCouponError: false,
+    discountCopounSuccess: false,
+    cameraInCartModal: null,
+    successModalOpen: false,
+    orderStatus: OrderStatus.Null,
+  }
 };
 
 

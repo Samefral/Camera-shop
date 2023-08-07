@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../../utils/mocks';
-import { NameSpace } from '../../../const';
+import { NameSpace, OrderStatus } from '../../../const';
 import MainCamerasList from './main-cameras-list';
 
 
@@ -47,6 +47,18 @@ const store = {
     addReviewModalOpen: false,
     addReviewSuccessStatus: false,
   },
+  [NameSpace.CartData]: {
+    cameras: [],
+    totalPrice: 0,
+    totalCount: 0,
+    discount: 0,
+    discountCoupon: null,
+    discountCouponError: false,
+    discountCopounSuccess: false,
+    cameraInCartModal: null,
+    successModalOpen: false,
+    orderStatus: OrderStatus.Null,
+  }
 };
 
 const fakeApp = (

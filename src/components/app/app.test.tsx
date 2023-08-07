@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../../hocs/history-route/history-route';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../../utils/mocks';
-import { NameSpace, AppRoute } from '../../const';
+import { NameSpace, AppRoute, OrderStatus } from '../../const';
 import App from './app';
 
 
@@ -44,6 +44,18 @@ const store = {
     addReviewModalOpen: false,
     addReviewSuccessStatus: false,
   },
+  [NameSpace.CartData]: {
+    cameras: [],
+    totalPrice: 0,
+    totalCount: 0,
+    discount: 0,
+    discountCoupon: null,
+    discountCouponError: false,
+    discountCopounSuccess: false,
+    cameraInCartModal: null,
+    successModalOpen: false,
+    orderStatus: OrderStatus.Null,
+  }
 };
 
 const camerasLoadingStore = mockStore({
