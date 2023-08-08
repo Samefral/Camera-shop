@@ -16,7 +16,7 @@ export type CartData = {
   orderStatus: string;
 };
 
-const initialState: CartData = {
+export const initialState: CartData = {
   cameras: [],
   totalPrice: 0,
   totalCount: 0,

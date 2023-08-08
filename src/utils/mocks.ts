@@ -18,6 +18,7 @@ export const makeFakeCamera = (): Camera => ({
   previewImg2x: system.filePath(),
   previewImgWebp: system.filePath(),
   previewImgWebp2x: system.filePath(),
+  count: 1,
 } as Camera);
 
 export const makeFakePromoCamera = (): PromoCamera => ({

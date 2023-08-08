@@ -3,11 +3,12 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../services/api';
-import { fetchCameraByIdAction, fetchCamerasAction, fetchPromoCameraAction, fetchReviewsAction, fetchSimilarCamerasAction, postReviewAction } from './api-actions';
+import { fetchCameraByIdAction, fetchCamerasAction, fetchDiscountAction, fetchPromoCameraAction, fetchReviewsAction, fetchSimilarCamerasAction, postOrderAction, postReviewAction } from './api-actions';
 import { APIRoute } from '../const';
 import { State } from '../types/state';
 import { makeFakeCamera, makeFakePromoCamera, makeFakeReview } from '../utils/mocks';
 import { PostReviewData } from '../types/review';
+import { PostOrderData } from '../types/order';
 
 const mockCameras = [makeFakeCamera(), makeFakeCamera()];
 const mockCamera = makeFakeCamera();
@@ -160,6 +161,57 @@ describe('Async actions', () => {
         postReviewAction.pending.type,
         fetchReviewsAction.pending.type,
         postReviewAction.fulfilled.type
+      ]);
+
+
+    });
+
+  });
+
+  describe('get cart discount action', () => {
+    it('should dispatch Load_Discount when POST /coupons', async () => {
+
+      const coupon = 'camera-333';
+
+      mockAPI
+        .onPost(APIRoute.CouponVerification)
+        .reply(200, 15);
+
+      const store = mockStore();
+
+      await store.dispatch(fetchDiscountAction(coupon));
+
+      const actions = store.getActions().map(({type}) => type);
+
+      expect(actions).toEqual([
+        fetchDiscountAction.pending.type,
+        fetchDiscountAction.fulfilled.type
+      ]);
+    });
+
+  });
+
+  describe('post order action', () => {
+
+    it('should dispatch order when POST /orders', async () => {
+      const fakeOrder: PostOrderData = {
+        camerasIds: [2, 3],
+        coupon: null,
+      };
+
+      mockAPI
+        .onPost(APIRoute.OrderPost)
+        .reply(200);
+
+      const store = mockStore();
+
+      await store.dispatch(postOrderAction(fakeOrder));
+
+      const actions = store.getActions().map(({type}) => type);
+
+      expect(actions).toEqual([
+        postOrderAction.pending.type,
+        postOrderAction.fulfilled.type
       ]);
 
 
