@@ -72,6 +72,7 @@ function RemoveFromCartModal(): JSX.Element {
                 className="btn btn--purple modal__btn modal__btn--half-width"
                 type="button"
                 onClick={handleRemoveFromCartClick}
+                style={{minWidth: '195px', minHeight: '40px'}}
               >
                 Удалить
               </button>
@@ -79,6 +80,7 @@ function RemoveFromCartModal(): JSX.Element {
                 className="btn btn--transparent modal__btn modal__btn--half-width"
                 to='#'
                 onClick={handleModalClose}
+                style={{minWidth: '195px', minHeight: '40px'}}
               >
                 Продолжить покупки
               </Link>
