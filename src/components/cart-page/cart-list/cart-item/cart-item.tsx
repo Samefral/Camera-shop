@@ -23,8 +23,14 @@ function CartItem({camera}: CartItemProps): JSX.Element {
     dispatch(setCameraInCartModal(camera));
   };
 
+  const handleInputCountKeydown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === ',') {
+      evt.preventDefault();
+    }
+  };
+
   const handleInputCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(evt.target.value);
+    const value = Math.floor(Number(evt.target.value));
 
     if (evt.target.value[0] === '0') {
       evt.target.value = '';
@@ -100,6 +106,7 @@ function CartItem({camera}: CartItemProps): JSX.Element {
           min="1"
           max="99"
           aria-label="количество товара"
+          onKeyDown={handleInputCountKeydown}
           onChange={handleInputCountChange}
           onBlur={handleInputCountBlur}
         />
